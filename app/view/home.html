@@ -1,3 +1,13 @@
-<div class="container">
-    conteudo da home
-</div>
+<ul>
+    {% for cliente in clientes %}
+        <li>{{cliente.nome}}</li>
+        {% if cliente.cpf is not empty %}
+            <li>{{cliente.cpf}}</li>
+        {% endif %}
+        {% if cliente.cnpj is not empty %}
+            <li>{{cliente.cnpj}}</li>
+        {% endif %}
+        
+        <li>{{cliente.email}}</li>
+    {% endfor %}        
+</ul>
