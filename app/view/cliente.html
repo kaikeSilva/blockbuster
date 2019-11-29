@@ -1,0 +1,59 @@
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-3">
+            <a name="" id="" class="btn btn-primary btn-lg" href="#" role="button">cadastrar</a>
+        </div>
+        
+        <div class="col-7">
+            <!--pesquisa de cliente-->
+            <form class="form-row my-2 my-lg-0 ">
+                <input class="form-control mr-sm-2 col-9" type="text" placeholder="CPF/CNPJ">
+                <a name="" id="" class="btn btn-primary col-2" href="#" role="button"><i class="texto-pesquisa fa fa-search" aria-hidden="true"></i></a>
+            </form>
+
+        </div>
+
+
+    </div>
+</div>
+
+<div id="cpf-table" class="container mt-5">
+
+    <div class="row justify-content-center">
+        <div class="col-12">
+
+            <table class="table ">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF/CNPJ</th>
+                        <th>Telefone</th>
+                        <th>E-mail</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                        {% for cliente in clientes %}
+                        {% if cliente.cnpj is empty %}
+                            <tr class="clicavel">
+        
+                                <td scope="row">{{cliente.nome}}</td>
+                                <td>{{cliente.cpf}}</td>
+                                <td>{{cliente.telefone_1}}</td>
+                                <td>{{cliente.email}}</td>
+                                <td><a name="deletar" id="deletar-cliente" class="btn btn-danger" href="#" role="button"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                <td><a name="" id="" class="btn btn-sm btn-primary" href="http://localhost/blockbuster/?pagina=alterarCliente&id={{cliente.pessoa_id}}" role="button">alterar</a></td>
+        
+                            </tr>
+                        {% else %}
+                            cnpj
+                        {% endif %}
+                        {% endfor %}
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+</div>

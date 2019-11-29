@@ -2,7 +2,9 @@
 
 require_once 'app/core/core.php';
 require_once 'app/controller/homeController.php';
+require_once 'app/controller/clienteController.php';
 require_once 'app/controller/ErroController.php';
+require_once 'app/controller/alterarClienteController.php';
 require_once 'app\model\cliente.php';
 require_once 'lib\database\conection.php';
 require_once 'vendor/autoload.php';

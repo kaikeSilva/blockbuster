@@ -1,7 +1,7 @@
 <?php
     //classe para retornar o html de home e dados
     //o controller se comunica com as views e com as models
-    class HomeController 
+    class ClienteController 
     {
         public function index()
         {
@@ -11,7 +11,7 @@
             */
             try {
                 //solicitação ao banco
-
+                $colecaoClientes = Cliente::selecionaTodos();
 
                 /*
                     twig é uma api que permite mostrar conteudos na view sem a necessidade de escrever
@@ -25,10 +25,14 @@
                 */
                 $loader = new \Twig\Loader\FilesystemLoader('app/view');
                 $twig = new \Twig\Environment($loader);
-                $template = $twig->load('home.html');
+                $template = $twig->load('cliente.html');
 
-                //renderizar o template, parametros de render seriam dados vindos de alguma model
-                echo $template->render();
+                //array com chaver parametros para substituir na view
+                $parametros = array();
+                $parametros['clientes'] = $colecaoClientes;
+                $conteudo = $template->render($parametros);
+
+                echo $conteudo;
 
             } catch (Exception $e) {
                 echo $e->getMessage();

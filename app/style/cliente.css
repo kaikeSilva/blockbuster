@@ -1,0 +1,28 @@
+.texto-pesquisa {
+    font-size: 1.5em;
+}
+a.pesquisar-cliente:hover {
+    color: white;
+}
+.radio-texto {
+    font-size: .8em;
+}
+tr.clicavel {
+    transition: .3s;
+}
+
+tr.clicavel:hover {
+    background-color:#deecf0;
+}
+
+.colunas-margem {
+    margin-left: -10px;
+}
+
+.input-consulta-cliente {
+    width: 70%;
+}
+
+.esconder {
+    display: none;
+}
