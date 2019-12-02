@@ -27,27 +27,22 @@
                 $twig = new \Twig\Environment($loader);
                 $template = $twig->load('cliente.html');
 
-                //array com chaver parametros para substituir na view
+                //array com chaves parametros para substituir na view
                 $parametros = array();
                 $parametros['clientes'] = $colecaoClientes;
                 $conteudo = $template->render($parametros);
-
+                var_dump('dentro do try renderizando primeira view');
                 echo $conteudo;
 
             } catch (Exception $e) {
                 echo $e->getMessage();
-            } finally {
                 $loader = new \Twig\Loader\FilesystemLoader('app/view');
                 $twig = new \Twig\Environment($loader);
                 $template = $twig->load('cliente.html');
-
-                //array com chaver parametros para substituir na view
-                $parametros = array();
-                $parametros['clientes'] = 0;
-                $conteudo = $template->render($parametros);
-
+                var_dump('dentro do catch renderizando segunda view');
+                $conteudo = $template->render();
                 echo $conteudo;
-            }
+            } 
 
             
         }
@@ -80,7 +75,7 @@
 
                 echo $conteudo;
 
-            } catch (Exception $e) {
+            } catch (PDOException $e) {
                 echo $e->getMessage();
             }
 
@@ -209,6 +204,24 @@
             } catch (Exception $e) {
                 echo $e->getMessage();
             }
+        }
+
+        public function deletarCliente($id) 
+        {
+            $successoDeletar = Cliente::deletar($id);
+
+            if ($successoDeletar ) {
+
+                $url['pagina'] = 'cliente';
+                $url['metodo'] = 'index';
+                Core::start($url);
+
+            } else {
+                
+                $mensagem = "não deletado";
+            }
+            
+            return true;
         }
 
         

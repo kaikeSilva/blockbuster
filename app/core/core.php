@@ -3,6 +3,8 @@
     class Core 
     {
         public static function start($urlGet)
+
+        
         {
             //ação guarda o metodo que vai ser usado da controller
             if(isset($urlGet['metodo'])){
@@ -34,8 +36,7 @@
             } else {
                 $id = null;
             }
-            var_dump($controller);
-            var_dump($acao);
+            
             call_user_func_array(array(new $controller, $acao),array('id'=>$id));
 
 

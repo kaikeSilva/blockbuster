@@ -34,6 +34,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                         {% for cliente in clientes %}
                         {% if cliente.cnpj is empty %}
                             <tr class="clicavel">
@@ -42,8 +43,15 @@
                                 <td>{{cliente.cpf}}</td>
                                 <td>{{cliente.telefone_1}}</td>
                                 <td>{{cliente.email}}</td>
-                                <td><a name="deletar" id="deletar-cliente" class="btn btn-danger" href="#" role="button"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
-                                <td><a name="" id="" class="btn btn-sm btn-primary" href="http://localhost/blockbuster/?pagina=alterarCliente&id={{cliente.pessoa_id}}" role="button">alterar</a></td>
+                                <td>
+                                    
+                                    <a name="deletar" id="deletar-cliente" class="btn btn-danger"  href="http://localhost/blockbuster/?pagina=cliente&metodo=deletarCliente&id={{cliente.pessoa_id}}" role="button"><i class="fa fa-trash"></i></a>
+                                </td>
+
+                                <td>
+                                    
+                                    <a name="" id="" class="btn btn-sm btn-primary" href="http://localhost/blockbuster/?pagina=alterarCliente&id={{cliente.pessoa_id}}" role="button">alterar</a>
+                                </td>
         
                             </tr>
                         {% else %}

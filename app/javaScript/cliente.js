@@ -19,6 +19,7 @@ function verificarTipo() {
 
 
 function validaDados() {
+    var validaTam = 0
     var camposVazios = 0
     var campos = Array()
     campos.push(document.getElementById('cpfCnpj'))
@@ -71,13 +72,21 @@ function validaDados() {
                     break;
             }
         } catch (error) {
+            validaTam = 1
             alert(error)
+            var mensagem = error
             return false
         }
     });
 
-    if(camposVazios > 0) {
+
+    if(camposVazios > 0 ) {
+        console.log(camposVazios)
+        console.log(validaTam)
         alert("preencha todos os campos!")
+        return false
+    } else if (validaTam != 0){
+        alert(mensagem)
         return false
     } else return true
 
@@ -95,7 +104,7 @@ function verificarTamanho(item,tamanho){
 function verificarVazio(item) {
     if (item.value.length == '' && item.id != 'telefone2' && item.disabled == false ){
         item.classList.add('erro')
-        return 1 
+        return 1
     } else {
         item.classList.remove('erro')
         return 0

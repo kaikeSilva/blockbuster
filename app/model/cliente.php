@@ -186,8 +186,8 @@
 
                 //inserir endereco
                 $sql = "INSERT INTO  endereco
-                (id_endereco, logradouro, cep, bairro, cidade, numero, complemento, estado)
-                VALUES ('NULL', :logradouro , :cep, :bairro, :cidade, :numero, :complemento, :estado)
+                (logradouro, cep, bairro, cidade, numero, complemento, estado)
+                VALUES ( :logradouro , :cep, :bairro, :cidade, :numero, :complemento, :estado)
                 ";
 
                 $sql = $con->prepare($sql);
@@ -198,13 +198,16 @@
                 $sql->bindValue(':numero', $endereco['numero'] , PDO::PARAM_STR);
                 $sql->bindValue(':complemento', $endereco['complemento'], PDO::PARAM_STR);
                 $sql->bindValue(':estado', $endereco['estado'], PDO::PARAM_STR);
+                
                 $resultado = $sql->execute();
                 $ultimoId = $con->lastInsertId();
+                
+                var_dump('inserção endereço');
                 var_dump($resultado);
                 var_dump($ultimoId);
 
 
-                //inserir pessoa primeiro
+                //inserir pessoa 
                 $sql = "INSERT INTO  pessoa
                 (id_pessoa, p_endereco, nome, telefone_1, telefone_2, email)
                 VALUES (NULL, :ultimoId , :nome, :telefone_1, :telefone_2, :email)
@@ -216,9 +219,11 @@
                 $sql->bindValue(':telefone_2', $pessoa['telefone_2'], PDO::PARAM_STR);
                 $sql->bindValue(':email', $pessoa['email'] , PDO::PARAM_STR);
                 $sql->bindValue(':ultimoId',  $ultimoId, PDO::PARAM_STR);
-                $resultado = $sql->execute();
+                
                 $resultado = $sql->execute();
                 $ultimoId = $con->lastInsertId();
+                
+                var_dump('inserção pessoa');
                 var_dump($resultado);
                 var_dump($ultimoId);
                 
@@ -233,22 +238,26 @@
                     $sql->bindValue(':cpf', $pessoaTipo['cpf'], PDO::PARAM_STR);
                     $sql->bindValue(':rg', $pessoaTipo['rg'], PDO::PARAM_STR);
                     $sql->bindValue(':ultimoId', $ultimoId, PDO::PARAM_STR);
-                    $resultado = $sql->execute();
+                    
                     $resultado = $sql->execute();
                     $ultimoId = $con->lastInsertId();
+                    
+                    var_dump('inserção pessoa fisica');
                     var_dump($resultado);
                     var_dump($ultimoId);
 
                 } else {
                     $sql = "INSERT INTO pessoa_j
                     (pessoa_id, cnpj, razao_social)
-                    VALUES (':ultimoId', ':cnpj', ':razao_social')
+                    VALUES (:ultimoId, :cnpj, :razao_social)
                     ";
 
                     $sql = $con->prepare($sql);
                     $sql->bindValue(':razao_social', $pessoaTipo['razao_social'], PDO::PARAM_STR);
                     $sql->bindValue(':cnpj', $pessoaTipo['cnpj'], PDO::PARAM_STR);
                     $sql->bindValue(':ultimoId', $ultimoId, PDO::PARAM_STR);
+                   
+                    var_dump('inserção pessoa juridica');
                     $resultado = $sql->execute();
                     $ultimoId = $con->lastInsertId();
                     var_dump($resultado);
@@ -271,5 +280,25 @@
             }
 
             return $resultado;
+        }
+
+        static function deletar($id) {
+            
+            var_dump('dentro da model deletar');
+            var_dump($id);
+            $con = Connection::getConn();
+
+            //deletar endereco
+            $sql = "DELETE FROM  pessoa
+            WHERE pessoa.id_pessoa = :id";
+
+            $sql = $con->prepare($sql);
+            $sql->bindValue(':id',$id , PDO::PARAM_STR);
+            
+            $resultado = $sql->execute();
+
+            var_dump($resultado);
+
+            return true;
         }
     }
