@@ -40,4 +40,66 @@
 
             
         }
+
+        public function alterarCliente() 
+        {
+
+            //preparar os dados de pessoa
+            $pessoa = array();
+            $pessoa['id_pessoa'] = $_POST['id_pessoa'];
+            $pessoa['nome'] = $_POST['nome'];
+            $pessoa['telefone_1'] = $_POST['telefone_1'];
+            $pessoa['telefone_2'] = $_POST['telefone_2'];
+            $pessoa['email'] = $_POST['email'];
+
+            //preparar os dados do endereço
+            $endereco = array();
+            $endereco['id_endereco'] = $_POST['p_endereco'];
+            $endereco['logradouro'] = $_POST['logradouro'];
+            $endereco['cep'] = $_POST['cep'];
+            $endereco['bairro'] = $_POST['bairro'];
+            $endereco['cidade'] = $_POST['cidade'];
+            $endereco['numero'] = $_POST['numero'];
+            $endereco['complemento'] = $_POST['complemento'];
+            $endereco['estado'] = $_POST['estado'];
+            
+             
+            
+
+
+            /*
+                Controller faz a solicitação para a model enviar os dados do banco,
+                mostrar dados recebidos ou a menssagem de erro vinda da model.
+            */
+            try {
+                //solicitação ao banco
+                //preparar dados de pessoa fisica ou juridica
+                if ( $_POST['tipo'] == 'j'){
+                    $pessoaJ = array();
+                    $pessoaJ['cnpj'] = $_POST['cpfcnpj'];
+                    $pessoaJ['razao_social'] = $_POST['razao_social'];
+                    $update = Cliente::alterarCliente($pessoa,$endereco,$pessoaJ,'j');
+
+                } else {
+                    $pessoaF = array();
+                    $pessoaF['cpf'] = $_POST['cpfcnpj'];
+                    $pessoaF['rg'] = $_POST['rg'];
+                    $update = Cliente::alterarCliente($pessoa,$endereco,$pessoaF,'f');
+
+                }
+
+                if ($update ) {
+                    $url['pagina'] = 'cliente';
+                    $url['metodo'] = 'index';
+                    Core::start($url);
+                } else {
+                    $mensagem = "não inserido no banco de dados";
+                }
+
+            } catch (Exception $e) {
+                echo $e->getMessage();
+            }
+        }
+
+        
     }

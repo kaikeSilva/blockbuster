@@ -1,160 +1,347 @@
-<!--conteudo de cadastro de cliente - ficha para preencher-->
 
-<div class="container mt-4">
-        <div class="row justify-content-between align-items-center">
-            
-            <!--dados pessoais-->
-            <div class="p-2 col-12 shadow-sm rounded">
-                <span class="p-2">Dados pessoais</span>
-                <hr>
-                <form action="" method="POST">
-                    <div class=" form-group">
-                       <div class="container">
-                            <div class="row">
-                                <div class="col-5">
-                                    <!--cpf/cnpj-->
-                                    <label for="cpf/cnpj">CPF/CNPJ </label>
-                                    <input class="form-control" type="number" name="cpf/cnpj"
-                                    
-                                    
-                                    {% for item in cliente %}
-                                    {% if item.cnpj is empty %}  
-                                        placeholder="{{item.cpf}}"
-                                    {% else %}
-                                        placeholder="{{item.cnpj}}"
-                                    {% endif %}
-                                    {% endfor %}
-                                    id="">
-                                </div>
-                            
-                                <div class="col-7">
-                                    <!--nome/nome fantasia-->
-                                    <label for="nome">Nome/Nome fantasia </label>
-                                    <input class="form-control" type="text" name="nome" placeholder="" id="">
-                                </div>
-                            </div>
-                       </div>
 
-                       <div class="mt-3 container">
-                            <div class="row">
-                                <div class="col-7">
-                                    <!--razão social-->
-                                    <label for="razao">razão social </label>
-                                    <input class="form-control" type="text" name="razao" placeholder="" id="">
-                                </div>
-                            
-                                <div class="col-5">
-                                    <!--identidade-->
-                                    <label for="identidade">identidade</label>
-                                    <input class="form-control" type="number" name="identidade" placeholder="digite apenas os numeros" id="">
-                                </div>
-                            </div>
-                       </div>
-
-                       <div class="mt-3 container">
-                            <div class="row">
-                                <div class="col-5">
-                                    <!--telefone-->
-                                    <label for="telefone">telefone </label>
-                                    <input class="form-control" type="number" name="telefone" placeholder="Digite apenas números" id="">
-                                </div>
-                            
-                                <div class="col-7">
-                                    <!--e-mail-->
-                                    <label for="e-mail">e-mail</label>
-                                    <input class="form-control" type="email" name="e-mail" placeholder="email-do-cliente@email.com" id="">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="mt-3 container">
-                            <div class="row">
-                                <div class="col-5">
-                                    <!--telefone-->
-                                    <label for="telefone">recado </label>
-                                    <input class="form-control" type="number" name="telefone" placeholder="Digite apenas números" id="">
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </form>
+<div  class="container mt-4 shadow-lg" >
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-7">
+                <h1 class="font-weight-light pl-4 pt-4">dados pessoais</h1>
             </div>
-            
-            <!--endereço-->
-            <div class="p-2 mt-4 col-12 shadow-sm rounded">
-                <span class="p-2">Endereço</span>
-                <hr>
-                <form action="" method="POST">
-                    <div class=" form-group">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-5">
-                                    <!--logradouro-->
-                                    <label for="logradouro">logradouro </label>
-                                    <input class="form-control" type="text" name="logradouro" placeholder="Rua, avenida, praça..." id="">
-                                </div>
-                            
-                                <div class="col-3">
-                                    <!--numero-->
-                                    <label for="numero">numero </label>
-                                    <input class="form-control" type="number" name="numero" placeholder="digite apenas numeros" id="">
-                                </div>
 
-                                <div class="col-4">
-                                    <!--complemento-->
-                                    <label for="complemento">complemento </label>
-                                    <input class="form-control" type="text" name="complemento" placeholder="" id="">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-5">
-                                    <!--bairro-->
-                                    <label for="bairro">bairro </label>
-                                    <input class="form-control" type="text" name="bairro" placeholder="" id="">
-                                </div>
-                            
-                                <div class="col-3">
-                                    <!--cidade-->
-                                    <label for="cidade">cidade </label>
-                                    <input class="form-control" type="text" name="cidade" placeholder="" id="">
-                                </div>
-
-                                <div class="col-3">
-                                    <!--estado-->
-                                    <label for="estado">estado </label>
-                                    <input class="form-control" type="text" name="estado" placeholder="GO, SP, SC..." id="">
-                                </div>
-
-                                <div class="col-3">
-                                    <!--CEP-->
-                                    <label for="CEP">CEP </label>
-                                    <input class="form-control" type="text" name="CEP" placeholder="00000000" id="">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="container mt-5">
-                            <div class="row justify-content-around">
-                                <div class="col-4">
-                                    <div class="row justify-content-center">
-                                        <a name="" id="" class="col-10 btn btn-danger" href="#" role="button">cancelar</a>
-                                    </div>
-                                </div>
-
-                                <div class="col-4">
-                                    <div class="row justify-content-center">
-                                        <a name="" id="" class="col-10 btn btn-success" href="#" role="button">salvar</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </form>
+            <div class="pt-3 col-4 ">
+                <small class="mr-0">*campos obrigatórios</small>
             </div>
         </div>
+    </div>
+    
+    <form action="?pagina=cliente&metodo=alterarCliente" onsubmit="return validaDados()" method="POST">
+    
+        <div class="row p-4">
+
+            <!--cpf ou cnpj-->
+            <div class="col-4 ">
+                                    
+                <!--cpf/cnpj-->
+                <label for="cpf/cnpj">CPF/CNPJ * </label>
+                <input 
+                    id="cpfCnpj"  
+                    class="form-control inputs" 
+                    type="number" 
+                    name="cpfcnpj"
+                    {% for item in cliente %}                    
+                        {% if item.cnpj is empty%}
+                            value="{{item.cpf}}"
+                        {% else %}
+                            value="{{item.cnpj}}"
+                        {% endif %}
+                    {% endfor %}
+                >
+            </div>
+
+            <!--tipo cliente-->
+            <div class="col-2 pt-4"> 
+                <!--cpf-->
+                <label required="" class="radio-inline" for="radios-0" >
+                    <input 
+                    class="inputs"
+                    onchange="verificarTipo()"
+                    name="tipo"
+                    {% for item in cliente %}                    
+                        {% if item.cnpj is empty%}
+                            checked
+                        {% endif %}
+                    {% endfor %}
+                    disabled
+                    id="tipocpf" value="cpf" type="radio" required>
+                    cpf
+                </label> <br>
+
+                <!--cnpj-->
+                <label onchange="verificarTipo()" class="radio-inline" for="radios-1">
+                    <input 
+                    class="inputs" 
+                    name="tipo"
+                    disabled
+                    onchange="verificarTipo()"
+                    {% for item in cliente %}                    
+                        {% if item.cpf is empty%}
+                            checked
+                        {% endif %}
+                    {% endfor %}
+                    id="tipocnpj" value="cnpj" type="radio">
+                    cnpj
+                </label>
+            </div>
+
+            <div class="col-6">
+                <!--nome/nome fantasia-->
+                <label for="nome">Nome/Nome fantasia * </label>
+                <input 
+                    class="form-control inputs " 
+                    {% for item in cliente %}                    
+                        value="{{item.nome}}"
+                    {% endfor %} 
+                    type="text" 
+                    name="nome" 
+                    placeholder="" 
+                    id="nome">
+            </div>
+
+        </div>
+
+        <div class="mt-3 container">
+            <div class="row">
+                <div class="col-7">
+                    <!--razão social-->
+                    <label for="razao">razão social * </label>
+                    <input 
+                    class="form-control inputs"  
+                    {% for item in cliente %}                    
+                        {% if item.cnpj is empty%}
+                            value="sem valor"
+                        {% else %}
+                            value="{{item.razao_social}}"
+                        {% endif %}
+                    {% endfor %}
+                    type="text" 
+                    name="razao_social" 
+                    placeholder="" 
+                    id="razao">
+                </div>
+            
+                <div class="col-5">
+                    <!--identidade-->
+                    <label for="identidade">RG *</label>
+                    <input 
+                    class="form-control inputs" 
+                    type="number"                                    
+                    name="rg" 
+                    {% for item in cliente %}                    
+                        {% if item.cnpj is empty%}
+                            value="{{item.rg}}"
+                        {% else %}
+                            value="00000000"
+                        {% endif %}
+                    {% endfor %}
+                    placeholder="numeros do RG" 
+                    id="rg">
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3 container">
+            <div class="row">
+                <div class="col-5">
+                    <!--telefone 1-->
+                    <label for="telefone">telefone * </label>
+                    <input 
+                    class="form-control inputs" 
+                    type="number"
+                    {% for item in cliente %}                    
+                        value="{{item.telefone_1}}"
+                    {% endfor %}  
+                    name="telefone_1" 
+                    placeholder="Digite apenas números" 
+                    id="telefone1">
+                </div>
+            
+                <div class="col-7">
+                    <!--e-mail-->
+                    <label for="e-mail">e-mail *</label>
+                    <input 
+                    class="form-control inputs" 
+                    {% for item in cliente %}                    
+                        value="{{item.email}}"
+                    {% endfor %}  
+                    type="email" 
+                    name="email" 
+                    placeholder="email-do-cliente@email.com" 
+                    id="email">
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3 container">
+            <div class="row">
+                <div class="col-5">
+                    <!--telefone 2-->
+                    <label for="telefone">recado </label>
+                    <input 
+                    class="form-control inputs" 
+                    type="number" 
+                    name="telefone_2" 
+                    placeholder="Digite apenas números" 
+                    {% for item in cliente %}                    
+                        {% if item.telefone_2 is empty%}
+                            value=""
+                        {% else %}
+                            value="{{item.telefone_2}}"
+                        {% endif %}
+                    {% endfor %} 
+                    id="telefone2">
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <h1 class="font-weight-light pl-4 pb-4">Endereço</h1>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-5">
+                    <!--logradouro-->
+                    <label for="logradouro">logradouro * </label>
+                    <input 
+                    class="form-control inputs"   
+                    type="text" 
+                    name="logradouro" 
+                    placeholder="Rua, avenida, praça..." 
+                    id="logradouro" 
+                    {% for item in cliente %}                    
+                        value="{{item.logradouro}}"
+                    {% endfor %} >
+                </div>
+            
+                <div class="col-3">
+                    <!--numero-->
+                    <label for="numero">numero *</label>
+                    <input 
+                    class="form-control inputs" 
+                    {% for item in cliente %}                    
+                        value="{{item.numero}}"
+                    {% endfor %}  
+                    type="number" 
+                    name="numero" 
+                    placeholder="digite apenas numeros" 
+                    id="numero">
+                </div>
+
+                <div class="col-4">
+                    <!--complemento-->
+                    <label for="complemento ">complemento *</label>
+                    <input 
+                    class="form-control inputs" 
+                    {% for item in cliente %}                    
+                        value="{{item.complemento}}"
+                    {% endfor %}  
+                    type="text" 
+                    name="complemento" 
+                    placeholder="" 
+                    id="complemento">
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-5">
+                    <!--bairro-->
+                    <label for="bairro">bairro </label>
+                    <input 
+                    class="form-control  inputs" 
+                    {% for item in cliente %}                    
+                        value="{{item.bairro}}"
+                    {% endfor %}
+                    type="text" 
+                    name="bairro" 
+                    placeholder="" 
+                    id="bairro">
+                </div>
+            
+                <div class="col-3">
+                    <!--cidade-->
+                    <label for="cidade">cidade </label>
+                    <input 
+                    class="form-control inputs" 
+                    {% for item in cliente %}                    
+                        value="{{item.cidade}}"
+                    {% endfor %}
+                    type="text" 
+                    name="cidade" 
+                    placeholder="" 
+                    id="cidade">
+                </div>
+
+                <div class="col-3">
+                    <!--estado-->
+                    <label for="estado">estado </label>
+                    <input 
+                    class="form-control inputs" 
+                    {% for item in cliente %}                    
+                        value="{{item.estado}}"
+                    {% endfor %}
+                    type="text" 
+                    name="estado" 
+                    placeholder="GO, SP, SC..." 
+                    id="estado">
+                </div>
+
+                <div class="col-3">
+                    <!--CEP-->
+                    <label for="CEP">CEP </label>
+                    <input 
+                    class="form-control inputs" 
+                    {% for item in cliente %}                    
+                        value="{{item.cep}}"
+                    {% endfor %}
+                    type="number" 
+                    name="cep" 
+                    placeholder="00000000" 
+                    id="cep">
+                </div>
+            </div>
+        </div>
+
+        <!--id's-->
+        <input
+        hidden
+        name="id_pessoa"
+        type="text" 
+        {% for item in cliente %}                    
+            value="{{item.id_pessoa}}"
+        {% endfor %}>
+        
+        <input
+        hidden
+        name="p_endereco"
+        type="text" 
+        {% for item in cliente %}                    
+            value="{{item.p_endereco}}"
+        {% endfor %}>
+
+        <!--tipo-->
+        <input
+        hidden
+        name="tipo"
+        type="text" 
+        {% for item in cliente %}                    
+            {% if item.cnpj is empty%}
+                value="f"
+            {% else %}
+                value="j"
+            {% endif %}
+        {% endfor %}>
+
+
+        
+        <div class="row justify-content-around mt-4 pb-4">
+            <div class="col-4">
+                <!-- botão cancelar-->
+                <div class="row justify-content-center">
+                    <a name="" id="" class="col-10 btn btn-danger" href="http://localhost/blockbuster/?pagina=cliente" role="button">cancelar</a>
+                </div>
+            </div>
+            <!-- botão alterar-->
+            <div class="col-4">
+                <div class="row justify-content-center">
+                    <input type="submit"   value="salvar" class="btn btn-success col-10">
+                </div>
+            </div>
+        </div>
+    
+    </form>
+
 </div>

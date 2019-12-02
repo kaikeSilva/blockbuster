@@ -12,7 +12,6 @@
             try {
                 //solicitação ao banco
                 $cliente = Cliente::retornarCliente($id);
-
                 /*
                     twig é uma api que permite mostrar conteudos na view sem a necessidade de escrever
                     codigo php no html da view, assim o codigo não fica misturado.
@@ -31,6 +30,7 @@
                 $parametros = array();
                 $parametros['cliente'] = $cliente;
                 $conteudo = $template->render($parametros);
+                
 
                 echo $conteudo;
 

@@ -2,8 +2,15 @@
 
     class Core 
     {
-        public function start($urlGet)
+        public static function start($urlGet)
         {
+            //ação guarda o metodo que vai ser usado da controller
+            if(isset($urlGet['metodo'])){
+                $acao = $urlGet['metodo'];
+            } else {
+                $acao = 'index';
+            }
+
             /*buscar pela controller da pagina passada na url e usar
             metodos dessa controller, caso nao exista, buscar pela controller home*/
             if (isset($urlGet['pagina'])){
@@ -11,19 +18,25 @@
             } else {
                 $controller = 'HomeController';
             }
-              
-            $acao = 'index';
-            
 
-
+            //caso tente acessar uma pagina invalida enviar para pagina de erro
             if (!class_exists($controller)) {
                 $controller = 'ErroController';
             }
 
-            //a controller da pagina de alteração de cadastro espera um id como parametro
-            var_dump($urlGet);
             //instanciação da controller e utilização do metodo
-            call_user_func_array(array(new $controller, $acao),array('id' => $urlGet['id']));
+
+
+            //a controller da pagina de alteração de cadastro espera um id como parametro
+            //nem todos as paginas enviam o parametro id, verificdar se foi setado antes de enviar para controller
+            if(isset($urlGet['id']) && $urlGet['id'] !=null ){
+                $id = $urlGet['id'];
+            } else {
+                $id = null;
+            }
+
+            call_user_func_array(array(new $controller, $acao),array('id'=>$id));
+
 
         }
     }
