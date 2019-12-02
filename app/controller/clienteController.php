@@ -31,7 +31,6 @@
                 $parametros = array();
                 $parametros['clientes'] = $colecaoClientes;
                 $conteudo = $template->render($parametros);
-                var_dump('dentro do try renderizando primeira view');
                 echo $conteudo;
 
             } catch (Exception $e) {
@@ -39,7 +38,6 @@
                 $loader = new \Twig\Loader\FilesystemLoader('app/view');
                 $twig = new \Twig\Environment($loader);
                 $template = $twig->load('cliente.html');
-                var_dump('dentro do catch renderizando segunda view');
                 $conteudo = $template->render();
                 echo $conteudo;
             } 
@@ -144,7 +142,6 @@
 
         public function realizarCadastro() 
         {
-            var_dump($_POST);
             //preparar os dados de pessoa
             $pessoa = array();
             $pessoa['nome'] = $_POST['nome'];

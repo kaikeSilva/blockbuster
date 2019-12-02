@@ -177,10 +177,6 @@
         static function cadastrarCliente($pessoa,$endereco,$pessoaTipo,$tipo) {
             /*pegar a conexão com o banco de dados para interagir com o banco
             pedindo o dado do cliente com o id correspondente*/
-            var_dump($pessoaTipo);
-            var_dump($pessoa);
-            var_dump($endereco);
-            var_dump($tipo);
             $con = Connection::getConn();
             try {
 
@@ -201,10 +197,6 @@
                 
                 $resultado = $sql->execute();
                 $ultimoId = $con->lastInsertId();
-                
-                var_dump('inserção endereço');
-                var_dump($resultado);
-                var_dump($ultimoId);
 
 
                 //inserir pessoa 
@@ -222,10 +214,7 @@
                 
                 $resultado = $sql->execute();
                 $ultimoId = $con->lastInsertId();
-                
-                var_dump('inserção pessoa');
-                var_dump($resultado);
-                var_dump($ultimoId);
+            
                 
             //inserir pf se cpf ou pessoa juridica se cnpj
                 if($tipo == 'f') {
@@ -242,9 +231,6 @@
                     $resultado = $sql->execute();
                     $ultimoId = $con->lastInsertId();
                     
-                    var_dump('inserção pessoa fisica');
-                    var_dump($resultado);
-                    var_dump($ultimoId);
 
                 } else {
                     $sql = "INSERT INTO pessoa_j
@@ -256,12 +242,10 @@
                     $sql->bindValue(':razao_social', $pessoaTipo['razao_social'], PDO::PARAM_STR);
                     $sql->bindValue(':cnpj', $pessoaTipo['cnpj'], PDO::PARAM_STR);
                     $sql->bindValue(':ultimoId', $ultimoId, PDO::PARAM_STR);
-                   
-                    var_dump('inserção pessoa juridica');
+
                     $resultado = $sql->execute();
                     $ultimoId = $con->lastInsertId();
-                    var_dump($resultado);
-                    var_dump($ultimoId);
+
 
                 }
 
