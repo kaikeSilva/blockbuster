@@ -173,4 +173,103 @@
 
             return $resultado;
         }
+
+        static function cadastrarCliente($pessoa,$endereco,$pessoaTipo,$tipo) {
+            /*pegar a conexão com o banco de dados para interagir com o banco
+            pedindo o dado do cliente com o id correspondente*/
+            var_dump($pessoaTipo);
+            var_dump($pessoa);
+            var_dump($endereco);
+            var_dump($tipo);
+            $con = Connection::getConn();
+            try {
+
+                //inserir endereco
+                $sql = "INSERT INTO  endereco
+                (id_endereco, logradouro, cep, bairro, cidade, numero, complemento, estado)
+                VALUES ('NULL', :logradouro , :cep, :bairro, :cidade, :numero, :complemento, :estado)
+                ";
+
+                $sql = $con->prepare($sql);
+                $sql->bindValue(':logradouro',$endereco['logradouro'] , PDO::PARAM_STR);
+                $sql->bindValue(':cep', $endereco['cep'], PDO::PARAM_STR);
+                $sql->bindValue(':bairro', $endereco['bairro'], PDO::PARAM_STR);
+                $sql->bindValue(':cidade', $endereco['cidade'], PDO::PARAM_STR);
+                $sql->bindValue(':numero', $endereco['numero'] , PDO::PARAM_STR);
+                $sql->bindValue(':complemento', $endereco['complemento'], PDO::PARAM_STR);
+                $sql->bindValue(':estado', $endereco['estado'], PDO::PARAM_STR);
+                $resultado = $sql->execute();
+                $ultimoId = $con->lastInsertId();
+                var_dump($resultado);
+                var_dump($ultimoId);
+
+
+                //inserir pessoa primeiro
+                $sql = "INSERT INTO  pessoa
+                (id_pessoa, p_endereco, nome, telefone_1, telefone_2, email)
+                VALUES (NULL, :ultimoId , :nome, :telefone_1, :telefone_2, :email)
+                ";
+
+                $sql = $con->prepare($sql);
+                $sql->bindValue(':nome', $pessoa['nome'], PDO::PARAM_STR);
+                $sql->bindValue(':telefone_1', $pessoa['telefone_1'], PDO::PARAM_STR);
+                $sql->bindValue(':telefone_2', $pessoa['telefone_2'], PDO::PARAM_STR);
+                $sql->bindValue(':email', $pessoa['email'] , PDO::PARAM_STR);
+                $sql->bindValue(':ultimoId',  $ultimoId, PDO::PARAM_STR);
+                $resultado = $sql->execute();
+                $resultado = $sql->execute();
+                $ultimoId = $con->lastInsertId();
+                var_dump($resultado);
+                var_dump($ultimoId);
+                
+            //inserir pf se cpf ou pessoa juridica se cnpj
+                if($tipo == 'f') {
+                    $sql = "INSERT INTO  pessoa_f
+                    (pessoa_id, cpf, rg)
+                    VALUES (:ultimoId, :cpf, :rg)
+                    ";
+
+                    $sql = $con->prepare($sql);
+                    $sql->bindValue(':cpf', $pessoaTipo['cpf'], PDO::PARAM_STR);
+                    $sql->bindValue(':rg', $pessoaTipo['rg'], PDO::PARAM_STR);
+                    $sql->bindValue(':ultimoId', $ultimoId, PDO::PARAM_STR);
+                    $resultado = $sql->execute();
+                    $resultado = $sql->execute();
+                    $ultimoId = $con->lastInsertId();
+                    var_dump($resultado);
+                    var_dump($ultimoId);
+
+                } else {
+                    $sql = "INSERT INTO pessoa_j
+                    (pessoa_id, cnpj, razao_social)
+                    VALUES (':ultimoId', ':cnpj', ':razao_social')
+                    ";
+
+                    $sql = $con->prepare($sql);
+                    $sql->bindValue(':razao_social', $pessoaTipo['razao_social'], PDO::PARAM_STR);
+                    $sql->bindValue(':cnpj', $pessoaTipo['cnpj'], PDO::PARAM_STR);
+                    $sql->bindValue(':ultimoId', $ultimoId, PDO::PARAM_STR);
+                    $resultado = $sql->execute();
+                    $ultimoId = $con->lastInsertId();
+                    var_dump($resultado);
+                    var_dump($ultimoId);
+
+                }
+
+                return $resultado;
+
+            } catch (PDOException $th) {
+                return $resultado;
+                echo($th);
+            }
+           
+
+            
+            if (!$resultado) {
+                throw new Exception("Não foi possibel inserir no banco de dados");
+                return $resultado;
+            }
+
+            return $resultado;
+        }
     }

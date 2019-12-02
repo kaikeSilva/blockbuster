@@ -34,7 +34,8 @@
             } else {
                 $id = null;
             }
-
+            var_dump($controller);
+            var_dump($acao);
             call_user_func_array(array(new $controller, $acao),array('id'=>$id));
 
 

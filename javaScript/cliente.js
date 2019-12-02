@@ -12,7 +12,6 @@ function verificarTipo() {
             document.getElementById('razao').disabled = true
             document.getElementById('rg').disabled = false
         }
-        console.log('if')
     } catch (error) {
         console.log(error)
     }    
@@ -34,6 +33,7 @@ function validaDados() {
     campos.push(document.getElementById('complemento'))
     campos.push(document.getElementById('bairro'))
     campos.push(document.getElementById('numero'))
+    campos.push(document.getElementById('cidade'))
     campos.push(document.getElementById('estado'))
     campos.push(document.getElementById('cep'))
 
@@ -79,24 +79,23 @@ function validaDados() {
     if(camposVazios > 0) {
         alert("preencha todos os campos!")
         return false
-    }
+    } else return true
 
 
 
-    return true
 }
 
 function verificarTamanho(item,tamanho){
-    if(item.value.length != tamanho){
+    if(item.value.length != tamanho && item.disabled == false){
         item.classList.add('erro')
         throw "campo "+item.id+" deve ter "+tamanho+" digitos"
     } else item.classList.remove('erro')
 }
 
 function verificarVazio(item) {
-    if (item.value.length == '' && item.id != 'telefone2'){
+    if (item.value.length == '' && item.id != 'telefone2' && item.disabled == false ){
         item.classList.add('erro')
-        return 1
+        throw 
     } else {
         item.classList.remove('erro')
         return 0

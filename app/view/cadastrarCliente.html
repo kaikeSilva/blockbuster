@@ -1,0 +1,250 @@
+
+
+<div  class="container mt-4 shadow-lg" >
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-7">
+                    <h1 class="font-weight-light pl-4 pt-4">dados pessoais</h1>
+                </div>
+    
+                <div class="pt-3 col-4 ">
+                    <small class="mr-0">*campos obrigatórios</small>
+                </div>
+            </div>
+        </div>
+        
+        <form action="?pagina=cliente&metodo=realizarCadastro" onsubmit="return validaDados()" method="POST">
+        
+            <div class="row p-4">
+    
+                <!--cpf ou cnpj-->
+                <div class="col-4 ">
+                                        
+                    <!--cpf/cnpj-->
+                    <label for="cpf/cnpj">CPF/CNPJ * </label>
+                    <input 
+                        id="cpfCnpj"  
+                        class="form-control inputs" 
+                        type="number" 
+                        name="cpfcnpj"
+                    >
+                </div>
+    
+                <!--tipo cliente-->
+                <div class="col-2 pt-4"> 
+                    <!--cpf-->
+                    <label required="" class="radio-inline" for="radios-0" >
+                        <input 
+                        class="inputs"
+                        onchange="verificarTipo()"
+                        checked
+                        name="tipo"
+                        id="tipocpf" value="f" type="radio" required>
+                        cpf
+                    </label> <br>
+    
+                    <!--cnpj-->
+                    <label onchange="verificarTipo()" class="radio-inline" for="radios-1">
+                        <input 
+                        class="inputs" 
+                        name="tipo"
+                        onchange="verificarTipo()"
+                        id="tipocnpj" value="j" type="radio">
+                        cnpj
+                    </label>
+                </div>
+    
+                <div class="col-6">
+                    <!--nome/nome fantasia-->
+                    <label for="nome">Nome/Nome fantasia * </label>
+                    <input 
+                        class="form-control inputs " 
+                        type="text" 
+                        name="nome" 
+                        placeholder="" 
+                        id="nome">
+                </div>
+    
+            </div>
+    
+            <div class="mt-3 container">
+                <div class="row">
+                    <div class="col-7">
+                        <!--razão social-->
+                        <label for="razao">razão social * </label>
+                        <input 
+                        class="form-control inputs"  
+                        type="text" 
+                        name="razao_social" 
+                        placeholder="" 
+                        id="razao">
+                    </div>
+                
+                    <div class="col-5">
+                        <!--identidade-->
+                        <label for="identidade">RG *</label>
+                        <input 
+                        class="form-control inputs" 
+                        type="number"                                    
+                        name="rg" 
+                        placeholder="numeros do RG" 
+                        id="rg">
+                    </div>
+                </div>
+            </div>
+    
+            <div class="mt-3 container">
+                <div class="row">
+                    <div class="col-5">
+                        <!--telefone 1-->
+                        <label for="telefone">telefone * </label>
+                        <input 
+                        class="form-control inputs" 
+                        type="number" 
+                        name="telefone_1" 
+                        placeholder="Digite apenas números" 
+                        id="telefone1">
+                    </div>
+                
+                    <div class="col-7">
+                        <!--e-mail-->
+                        <label for="e-mail">e-mail *</label>
+                        <input 
+                        class="form-control inputs"  
+                        type="email" 
+                        name="email" 
+                        placeholder="email-do-cliente@email.com" 
+                        id="email">
+                    </div>
+                </div>
+            </div>
+    
+            <div class="mt-3 container">
+                <div class="row">
+                    <div class="col-5">
+                        <!--telefone 2-->
+                        <label for="telefone">recado </label>
+                        <input 
+                        class="form-control inputs" 
+                        type="number" 
+                        name="telefone_2" 
+                        placeholder="Digite apenas números" 
+                        id="telefone2">
+                    </div>
+                </div>
+            </div>
+    
+            <br>
+            <hr>
+            <br>
+    
+            <h1 class="font-weight-light pl-4 pb-4">Endereço</h1>
+    
+            <div class="container">
+                <div class="row">
+                    <div class="col-5">
+                        <!--logradouro-->
+                        <label for="logradouro">logradouro * </label>
+                        <input 
+                        class="form-control inputs"   
+                        type="text" 
+                        name="logradouro" 
+                        placeholder="Rua, avenida, praça..." 
+                        id="logradouro"  >
+                    </div>
+                
+                    <div class="col-3">
+                        <!--numero-->
+                        <label for="numero">numero *</label>
+                        <input 
+                        class="form-control inputs" 
+                        {% for item in cliente %}                    
+                            value="{{item.numero}}"
+                        {% endfor %}  
+                        type="number" 
+                        name="numero" 
+                        placeholder="digite apenas numeros" 
+                        id="numero">
+                    </div>
+    
+                    <div class="col-4">
+                        <!--complemento-->
+                        <label for="complemento ">complemento *</label>
+                        <input 
+                        class="form-control inputs"  
+                        type="text" 
+                        name="complemento" 
+                        placeholder="" 
+                        id="complemento">
+                    </div>
+                </div>
+            </div>
+    
+            <div class="container">
+                <div class="row">
+                    <div class="col-5">
+                        <!--bairro-->
+                        <label for="bairro">bairro </label>
+                        <input 
+                        class="form-control  inputs" 
+                        type="text" 
+                        name="bairro" 
+                        placeholder="" 
+                        id="bairro">
+                    </div>
+                
+                    <div class="col-3">
+                        <!--cidade-->
+                        <label for="cidade">cidade *</label>
+                        <input 
+                        class="form-control inputs" 
+                        type="text" 
+                        name="cidade" 
+                        placeholder="" 
+                        id="cidade">
+                    </div>
+    
+                    <div class="col-3">
+                        <!--estado-->
+                        <label for="estado">estado *</label>
+                        <input 
+                        class="form-control inputs" 
+                        type="text" 
+                        name="estado" 
+                        placeholder="GO, SP, SC..." 
+                        id="estado">
+                    </div>
+    
+                    <div class="col-3">
+                        <!--CEP-->
+                        <label for="CEP">CEP *</label>
+                        <input 
+                        class="form-control inputs" 
+                        type="number" 
+                        name="cep" 
+                        placeholder="00000000" 
+                        id="cep">
+                    </div>
+                </div>
+            </div>
+    
+            
+            <div class="row justify-content-around mt-4 pb-4">
+                <div class="col-4">
+                    <!-- botão cancelar-->
+                    <div class="row justify-content-center">
+                        <a name="" id="" class="col-10 btn btn-danger" href="http://localhost/blockbuster/?pagina=cliente" role="button">cancelar</a>
+                    </div>
+                </div>
+                <!-- botão alterar-->
+                <div class="col-4">
+                    <div class="row justify-content-center">
+                        <input type="submit"   value="cadastrar" class="btn btn-success col-10">
+                    </div>
+                </div>
+            </div>
+        
+        </form>
+    
+    </div>
