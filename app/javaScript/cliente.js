@@ -1,4 +1,6 @@
-
+/*
+    Lógicas para validação de dados nas views relacionadas ao cliente
+*/
 function verificarTipo() {
     //desabilitar os campos que nao tem haver com o tipo do cliente que vai ser alterado
     try {
@@ -170,3 +172,88 @@ function verificarVazio(item) {
     }
 }
 
+/*
+    Lógicas para validação de dados nas views relacionadas a categoria
+*/
+//recolhe os campos que vao ser modificados e passa para uma função modificalos
+function habilitarEdicao (id) {
+    //mudar o botão para se tornar salvar e habilitar os campos para edição
+    var btnAlterar = document.getElementById(id)
+    var inputs = document.getElementsByClassName(id)
+    alterarHabilitar(btnAlterar,inputs,id)    
+
+    return false
+}
+
+//seta variaveis com os campos para enviar pro banco de dados
+function habilitarSubmissao(id) {
+    var inputs = document.getElementsByClassName(id)
+    verificarSubmissao(inputs,id)
+}
+
+//cria um formulario com os campos alterados e envia para o banco de dados
+function verificarSubmissao(inputs,id) {
+    console.log(inputs)
+    console.log(id)
+    var form = document.createElement("form");
+    var element1 = document.createElement("input"); 
+    var element2 = document.createElement("input");
+    var element3 = document.createElement("input");  
+
+    form.method = "POST";
+    form.action = "?pagina=categoria&metodo=alterarCategoria";
+
+    element1.value = inputs[0].value;
+    element1.name = "nome";
+    form.appendChild(element1);  
+
+    element2.value = inputs[1].value;
+    element2.name = "valor";
+    form.appendChild(element2);
+
+    element3.value = id;
+    element3.name = "categoria_id";
+    form.appendChild(element3);
+
+    document.body.appendChild(form);
+
+    form.submit();
+
+    return false
+}
+
+//altera o botão e habilita os inputs
+function alterarHabilitar(btn,inputs,id) {
+    //trocar o botão de alterar para salvar 
+    console.log(btn)
+    console.log(inputs)
+    console.log(id)
+    btn.style.visibility = "hidden"
+    var idBtn = "btn-salvar-"+id
+    var btnSalvar = document.getElementById(idBtn)
+    console.log(idBtn)
+    btnSalvar.classList.remove('escondido')
+
+    //habilitar inputs
+    inputs[0].disabled = false
+    inputs[1].disabled = false
+
+    inputs[0].focus()
+
+}
+
+//verifica se os campos de cadastrar categoria estão vazios
+function validaDadosCategoria () {
+    var campos = Array ()
+    campos.push(document.getElementById('nome')) 
+    campos.push(document.getElementById('valor'))
+    console.log(campos)
+    var camposVazios = 0
+    campos.forEach(element => {
+        camposVazios += verificarVazio(element)
+    });
+
+    if (camposVazios > 0) {
+        return false
+    } return true
+}

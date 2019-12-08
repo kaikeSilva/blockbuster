@@ -2,7 +2,7 @@
     //classe para retornar o html de home e dados
     //o controller se comunica com as views e com as models
     class ClienteController 
-    {
+    {   //carrega pagina inicial de cliente
         public function index()
         {
             /*
@@ -44,7 +44,7 @@
 
             
         }
-
+        //carrega a pagina de cadastro
         public function cadastrarCliente()
         {
             /*
@@ -79,7 +79,7 @@
 
             
         }
-
+        //carrega a pagina de alteração de dados do cliente
         public function alterarCliente() 
         {
 
@@ -139,7 +139,7 @@
                 echo $e->getMessage();
             }
         }
-
+        //envia os dados para o banco de dados
         public function realizarCadastro() 
         {
             //preparar os dados de pessoa
@@ -186,16 +186,13 @@
 
                 if ($update ) {
 
-                    var_dump($update);
                     $url['pagina'] = 'cliente';
                     $url['metodo'] = 'index';
                     Core::start($url);
-                    var_dump($update);
 
                 } else {
                     
                     $mensagem = "não inserido no banco de dados";
-                    var_dump($update);
                 }
 
             } catch (Exception $e) {

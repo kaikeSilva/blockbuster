@@ -1,0 +1,65 @@
+
+<div  class="container mt-4 shadow-lg" >
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-7">
+                    <h1 class="font-weight-light pl-4 pt-4">dados pessoais</h1>
+                </div>
+    
+                <div class="pt-3 col-4 ">
+                    <small class="mr-0">*campos obrigatórios</small>
+                </div>
+            </div>
+        </div>
+        
+        <form action="?pagina=categoria&metodo=realizarCadastro" onsubmit="return validaDadosCategoria()" method="POST">
+        
+            <div class="row p-4 justify-content-around">
+    
+                <!--cpf ou cnpj-->
+                <div class="col-4 ">
+                                        
+                    <!--nome-->
+                    <label for="cpf/cnpj">Nome da categoria * </label>
+                    <input 
+                        id="nome"  
+                        class="form-control inputs" 
+                        type="text" 
+                        name="nome"
+                    >
+                </div>
+
+                <div class="col-4 ">
+                                        
+                        <!-- valor-->
+                        <label for="cpf/cnpj">Valor da locação * </label>
+                        <input 
+                            id="valor"  
+                            class="form-control inputs" 
+                            type="number"
+                            step="0.01"
+                            name="valor"
+                        >
+                    </div>
+            </div>
+    
+            
+            <div class="row justify-content-around mt-4 pb-4">
+                <div class="col-4">
+                    <!-- botão cancelar-->
+                    <div class="row justify-content-center">
+                        <a name="" id="" class="col-10 btn btn-danger" href="http://localhost/blockbuster/?pagina=categoria" role="button">cancelar</a>
+                    </div>
+                </div>
+                <!-- botão alterar-->
+                <div class="col-4">
+                    <div class="row justify-content-center">
+                        <input type="submit"   value="cadastrar" class="btn btn-success col-10">
+                    </div>
+                </div>
+            </div>
+        
+        </form>
+    
+    </div>

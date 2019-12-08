@@ -186,7 +186,7 @@
               
                 //testar se existem pessoas cadastradas com o cpf /cnpj enviados           
                 if($tipo == 'f') {
-                    $podeInserir = Cliente::testarRepitido($pessoaTipo['cpf'],$tipo);
+                    $podeInserir = (Cliente::testarRepitido($pessoaTipo['cpf'],$tipo));
                 } else {
                     $podeInserir = Cliente::testarRepitido($pessoaTipo['cnpj'],$tipo);
                 }
@@ -264,6 +264,7 @@
                     return $resultado;
 
                 } else {
+                    var_dump($podeInserir);
                     $resultado = false;
                     throw new Exception("cpf/cnpj repitidos");
                 }
@@ -285,11 +286,9 @@
 
         static function deletar($id) {
             
-            var_dump('dentro da model deletar');
-            var_dump($id);
             $con = Connection::getConn();
 
-            //deletar endereco
+            //deletar pessoa
             $sql = "DELETE FROM  pessoa
             WHERE pessoa.id_pessoa = :id";
 

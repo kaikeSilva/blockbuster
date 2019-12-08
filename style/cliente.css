@@ -28,5 +28,16 @@ tr.clicavel:hover {
 }
 
 /*
-    validação de campos
+    inputs da home de categoria 
 */
+
+.desabilitado {
+    background-color: white;
+    border: none;
+    padding: 5px;
+}
+
+.escondido {
+    visibility: hidden;
+}
+
