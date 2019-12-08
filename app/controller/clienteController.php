@@ -199,7 +199,12 @@
                 }
 
             } catch (Exception $e) {
-                echo $e->getMessage();
+                echo '<script language="javascript">';
+                echo 'alert("ja existe cliente cadastrado para este cpf/cnpj")';  
+                echo '</script>';
+                $url['pagina'] = 'cliente';
+                $url['metodo'] = 'cadastrarCliente';
+                Core::start($url);
             }
         }
 

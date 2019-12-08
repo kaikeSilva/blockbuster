@@ -14,7 +14,7 @@
         </div>
     </div>
     
-    <form action="?pagina=cliente&metodo=alterarCliente" onsubmit="return false" method="POST">
+    <form action="?pagina=cliente&metodo=alterarCliente" onsubmit="return validaDados()" method="POST">
     
         <div class="row p-4">
 
@@ -23,7 +23,8 @@
                                     
                 <!--cpf/cnpj-->
                 <label for="cpf/cnpj">CPF/CNPJ * </label>
-                <input 
+                <input
+                    disabled
                     id="cpfCnpj"  
                     class="form-control inputs" 
                     type="number" 
@@ -95,6 +96,7 @@
                     <!--razão social-->
                     <label for="razao">razão social * </label>
                     <input 
+                    disabled
                     class="form-control inputs"  
                     {% for item in cliente %}                    
                         {% if item.cnpj is empty%}
@@ -113,6 +115,7 @@
                     <!--identidade-->
                     <label for="identidade">RG *</label>
                     <input 
+                    disabled
                     class="form-control inputs" 
                     type="number"                                    
                     name="rg" 
@@ -337,7 +340,7 @@
             <!-- botão alterar-->
             <div class="col-4">
                 <div class="row justify-content-center">
-                    <input type="submit" onclick="validaDados()"   value="salvar" class="btn btn-success col-10">
+                    <input type="submit" onclick="retirarDisabled()"    value="salvar" class="btn btn-success col-10">
                 </div>
             </div>
         </div>

@@ -94,6 +94,7 @@
         static function alterarCliente($pessoa,$endereco,$pessoaTipo,$tipo) {
             /*pegar a conexão com o banco de dados para interagir com o banco
             pedindo o dado do cliente com o id correspondente*/
+            var_dump($pessoaTipo);
             $con = Connection::getConn();
             try {
                     //inserir pessoa primeiro
@@ -140,7 +141,8 @@
             //inserir pf se cpf ou pessoa juridica se cnpj
                 if($tipo == 'f') {
                     $sql = "UPDATE pessoa_f
-                    SET rg = :rg
+                    SET rg = :rg,
+                    cpf = :id
                     WHERE pessoa_f.cpf = :id
                     ";
 
@@ -151,7 +153,8 @@
 
                 } else {
                     $sql = "UPDATE pessoa_j
-                    SET razao_social = :razao_social
+                    SET razao_social = :razao_social,
+                    cnpj = :id
                     WHERE pessoa_j.cnpj = :id
                     ";
                     $sql = $con->prepare($sql);
@@ -178,79 +181,93 @@
             /*pegar a conexão com o banco de dados para interagir com o banco
             pedindo o dado do cliente com o id correspondente*/
             $con = Connection::getConn();
-            try {
-
-                //inserir endereco
-                $sql = "INSERT INTO  endereco
-                (logradouro, cep, bairro, cidade, numero, complemento, estado)
-                VALUES ( :logradouro , :cep, :bairro, :cidade, :numero, :complemento, :estado)
-                ";
-
-                $sql = $con->prepare($sql);
-                $sql->bindValue(':logradouro',$endereco['logradouro'] , PDO::PARAM_STR);
-                $sql->bindValue(':cep', $endereco['cep'], PDO::PARAM_STR);
-                $sql->bindValue(':bairro', $endereco['bairro'], PDO::PARAM_STR);
-                $sql->bindValue(':cidade', $endereco['cidade'], PDO::PARAM_STR);
-                $sql->bindValue(':numero', $endereco['numero'] , PDO::PARAM_STR);
-                $sql->bindValue(':complemento', $endereco['complemento'], PDO::PARAM_STR);
-                $sql->bindValue(':estado', $endereco['estado'], PDO::PARAM_STR);
-                
-                $resultado = $sql->execute();
-                $ultimoId = $con->lastInsertId();
-
-
-                //inserir pessoa 
-                $sql = "INSERT INTO  pessoa
-                (id_pessoa, p_endereco, nome, telefone_1, telefone_2, email)
-                VALUES (NULL, :ultimoId , :nome, :telefone_1, :telefone_2, :email)
-                ";
-
-                $sql = $con->prepare($sql);
-                $sql->bindValue(':nome', $pessoa['nome'], PDO::PARAM_STR);
-                $sql->bindValue(':telefone_1', $pessoa['telefone_1'], PDO::PARAM_STR);
-                $sql->bindValue(':telefone_2', $pessoa['telefone_2'], PDO::PARAM_STR);
-                $sql->bindValue(':email', $pessoa['email'] , PDO::PARAM_STR);
-                $sql->bindValue(':ultimoId',  $ultimoId, PDO::PARAM_STR);
-                
-                $resultado = $sql->execute();
-                $ultimoId = $con->lastInsertId();
-            
-                
-            //inserir pf se cpf ou pessoa juridica se cnpj
+            try 
+            {
+              
+                //testar se existem pessoas cadastradas com o cpf /cnpj enviados           
                 if($tipo == 'f') {
-                    $sql = "INSERT INTO  pessoa_f
-                    (pessoa_id, cpf, rg)
-                    VALUES (:ultimoId, :cpf, :rg)
-                    ";
-
-                    $sql = $con->prepare($sql);
-                    $sql->bindValue(':cpf', $pessoaTipo['cpf'], PDO::PARAM_STR);
-                    $sql->bindValue(':rg', $pessoaTipo['rg'], PDO::PARAM_STR);
-                    $sql->bindValue(':ultimoId', $ultimoId, PDO::PARAM_STR);
-                    
-                    $resultado = $sql->execute();
-                    $ultimoId = $con->lastInsertId();
-                    
-
+                    $podeInserir = Cliente::testarRepitido($pessoaTipo['cpf'],$tipo);
                 } else {
-                    $sql = "INSERT INTO pessoa_j
-                    (pessoa_id, cnpj, razao_social)
-                    VALUES (:ultimoId, :cnpj, :razao_social)
-                    ";
-
-                    $sql = $con->prepare($sql);
-                    $sql->bindValue(':razao_social', $pessoaTipo['razao_social'], PDO::PARAM_STR);
-                    $sql->bindValue(':cnpj', $pessoaTipo['cnpj'], PDO::PARAM_STR);
-                    $sql->bindValue(':ultimoId', $ultimoId, PDO::PARAM_STR);
-
-                    $resultado = $sql->execute();
-                    $ultimoId = $con->lastInsertId();
-
-
+                    $podeInserir = Cliente::testarRepitido($pessoaTipo['cnpj'],$tipo);
                 }
 
-                return $resultado;
+                if($podeInserir){
+                    //inserir endereco
+                    $sql = "INSERT INTO  endereco
+                    (logradouro, cep, bairro, cidade, numero, complemento, estado)
+                    VALUES ( :logradouro , :cep, :bairro, :cidade, :numero, :complemento, :estado)
+                    ";
 
+                    $sql = $con->prepare($sql);
+                    $sql->bindValue(':logradouro',$endereco['logradouro'] , PDO::PARAM_STR);
+                    $sql->bindValue(':cep', $endereco['cep'], PDO::PARAM_STR);
+                    $sql->bindValue(':bairro', $endereco['bairro'], PDO::PARAM_STR);
+                    $sql->bindValue(':cidade', $endereco['cidade'], PDO::PARAM_STR);
+                    $sql->bindValue(':numero', $endereco['numero'] , PDO::PARAM_STR);
+                    $sql->bindValue(':complemento', $endereco['complemento'], PDO::PARAM_STR);
+                    $sql->bindValue(':estado', $endereco['estado'], PDO::PARAM_STR);
+
+                    $resultado = $sql->execute();
+                    $ultimoId = $con->lastInsertId();
+
+
+                    //inserir pessoa 
+                    $sql = "INSERT INTO  pessoa
+                    (id_pessoa, p_endereco, nome, telefone_1, telefone_2, email)
+                    VALUES (NULL, :ultimoId , :nome, :telefone_1, :telefone_2, :email)
+                    ";
+
+                    $sql = $con->prepare($sql);
+                    $sql->bindValue(':nome', $pessoa['nome'], PDO::PARAM_STR);
+                    $sql->bindValue(':telefone_1', $pessoa['telefone_1'], PDO::PARAM_STR);
+                    $sql->bindValue(':telefone_2', $pessoa['telefone_2'], PDO::PARAM_STR);
+                    $sql->bindValue(':email', $pessoa['email'] , PDO::PARAM_STR);
+                    $sql->bindValue(':ultimoId',  $ultimoId, PDO::PARAM_STR);
+
+                    $resultado = $sql->execute();
+                    $ultimoId = $con->lastInsertId();
+
+
+                    //inserir pf se cpf ou pessoa juridica se cnpj
+                    if($tipo == 'f') {
+                        $sql = "INSERT INTO  pessoa_f
+                        (pessoa_id, cpf, rg)
+                        VALUES (:ultimoId, :cpf, :rg)
+                        ";
+
+                        $sql = $con->prepare($sql);
+                        $sql->bindValue(':cpf', $pessoaTipo['cpf'], PDO::PARAM_STR);
+                        $sql->bindValue(':rg', $pessoaTipo['rg'], PDO::PARAM_STR);
+                        $sql->bindValue(':ultimoId', $ultimoId, PDO::PARAM_STR);
+                        
+                        $resultado = $sql->execute();
+                        $ultimoId = $con->lastInsertId();
+                        
+
+                    } else {
+                        $sql = "INSERT INTO pessoa_j
+                        (pessoa_id, cnpj, razao_social)
+                        VALUES (:ultimoId, :cnpj, :razao_social)
+                        ";
+
+                        $sql = $con->prepare($sql);
+                        $sql->bindValue(':razao_social', $pessoaTipo['razao_social'], PDO::PARAM_STR);
+                        $sql->bindValue(':cnpj', $pessoaTipo['cnpj'], PDO::PARAM_STR);
+                        $sql->bindValue(':ultimoId', $ultimoId, PDO::PARAM_STR);
+
+                        $resultado = $sql->execute();
+                        $ultimoId = $con->lastInsertId();
+
+
+                    }
+
+                    return $resultado;
+
+                } else {
+                    $resultado = false;
+                    throw new Exception("cpf/cnpj repitidos");
+                }
+                
             } catch (PDOException $th) {
                 return $resultado;
                 echo($th);
@@ -284,5 +301,57 @@
             var_dump($resultado);
 
             return true;
+        }
+
+        private static function testarRepitido($chave,$tipo){
+            /*pegar a conexão com o banco de dados para interagir com o banco
+            pedindo o dado do cliente com o id correspondente*/
+            $con = Connection::getConn();
+            
+            //verificar pf se cpf ou pessoa juridica se cnpj
+            if($tipo == 'f') {
+                $sql = "SELECT * FROM pessoa_f
+                where pessoa_f.cpf = :id;";
+
+                $sql = $con->prepare($sql);
+                $sql->bindValue(':id', $chave, PDO::PARAM_STR);
+                $sql->execute();
+                
+                $resultado = array();
+
+                while($row = $sql->fetchObject('Cliente')) {
+                    $resultado[] = $row;
+                }
+                
+                //se a contagem de elementos de resultado for maior que zero significa que tem pessoa
+                //cadastrada para o cpf/cnpj passado
+                if (sizeOf($resultado) > 0 ) {
+                    return false;
+                } else {
+                    return true;
+                }
+
+            } else {
+                $sql = "SELECT * FROM pessoa_j
+                where pessoa_j.cnpj = :id;";
+
+                $sql = $con->prepare($sql);
+                $sql->bindValue(':id', $chave, PDO::PARAM_STR);
+                $sql->execute();
+                
+                $resultado = array();
+
+                while($row = $sql->fetchObject('Cliente')) {
+                    $resultado[] = $row;
+                }
+                
+                if (sizeOf($resultado) > 0) {
+                    //retorna falso quando não pode inserir
+                    return false;
+                } else {
+                    //retorna verdadeiro quando pode inserir
+                    return true;
+                }
+            }
         }
     }

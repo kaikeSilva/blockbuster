@@ -7,6 +7,44 @@ function verificarTipo() {
         
         if(tipocpf == false) {
             document.getElementById('rg').disabled = true
+            document.getElementById('razao').disabled = true        
+        } else {
+            document.getElementById('razao').disabled = true
+            document.getElementById('rg').disabled = tue
+        }
+    } catch (error) {
+        console.log(error)
+    }    
+}
+
+function retirarDisabled() {
+    //desabilitar os campos que nao tem haver com o tipo do cliente que vai ser alterado
+    try {
+        var tipocpf = document.getElementsByName('tipo')[0].checked 
+        console.log(tipocpf)
+        
+        if(tipocpf == false) {
+            document.getElementById('rg').disabled = true
+            document.getElementById('razao').disabled = false  
+            document.getElementById('cpfCnpj').disabled = false       
+        } else {
+            document.getElementById('razao').disabled = true
+            document.getElementById('rg').disabled = false
+            document.getElementById('cpfCnpj').disabled = false
+        }
+    } catch (error) {
+        console.log(error)
+    }    
+}
+
+function verificarTipoCadastro() {
+    //desabilitar os campos que nao tem haver com o tipo do cliente que vai ser alterado
+    try {
+        var tipocpf = document.getElementsByName('tipo')[0].checked 
+        console.log(tipocpf)
+        
+        if(tipocpf == false) {
+            document.getElementById('rg').disabled = true
             document.getElementById('razao').disabled = false        
         } else {
             document.getElementById('razao').disabled = true
@@ -18,8 +56,8 @@ function verificarTipo() {
 }
 
 
+
 function validaDados() {
-    var camposVazios = 0
     var campos = Array()
     campos.push(document.getElementById('cpfCnpj'))
     campos.push(document.getElementById('nome'))
@@ -36,29 +74,35 @@ function validaDados() {
     campos.push(document.getElementById('cidade'))
     campos.push(document.getElementById('estado'))
     campos.push(document.getElementById('cep'))
-
-    var tipocpf = document.getElementsByName('tipo')[0].checked 
     
     //para cada campo verificar se esta vazio e se tem a quantidade de digitos correta
 
-    tamanho = percorrerVerificarTamanho(campos)
-    vazio = percorrerVerificarVazio(campos)
 
-    console.log("validação tamanho:"+tamanho)
-    console.log("validação vazio:"+vazio)
+    vazio = percorrerVerificarVazio(campos)
+    tamanho = percorrerVerificarTamanho(campos)
+
+    console.log("validacao tamanho:"+tamanho)
+    console.log("validacao vazio:"+vazio)
 
     if ( tamanho && vazio  ) {
+        console.log("retorno: true")
+        return true
+    } else {
         if (vazio == false) {
+            console.log("dfentro do if")
             alert ("preencha todos os campos marcados em vermelho!")
         }
+        console.log("retorno: false")
         return false
-    } return true
+    } 
 
 
 
 }
 
 function percorrerVerificarTamanho (campos) {
+    var camposTamanho = 0
+    var tipocpf = document.getElementsByName('tipo')[0].checked 
     campos.forEach(element => {
         try {
             switch (element.id) {
@@ -86,14 +130,20 @@ function percorrerVerificarTamanho (campos) {
                 default:
                     break;
             }
-            return true
         } catch (error) {
             alert(error)
-        } finally { return false }
+            camposTamanho++
+        }
     });
+
+    if (camposTamanho > 0) {
+        console.log("tamanhoCampos: "+ camposTamanho)
+        return false
+    } return true
 }
 
 function percorrerVerificarVazio (campos) {
+    var camposVazios = 0
     campos.forEach(element => {
         camposVazios += verificarVazio(element)
     });
