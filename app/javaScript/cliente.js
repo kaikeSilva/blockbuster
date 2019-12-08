@@ -19,7 +19,6 @@ function verificarTipo() {
 
 
 function validaDados() {
-    var validaTam = 0
     var camposVazios = 0
     var campos = Array()
     campos.push(document.getElementById('cpfCnpj'))
@@ -41,11 +40,27 @@ function validaDados() {
     var tipocpf = document.getElementsByName('tipo')[0].checked 
     
     //para cada campo verificar se esta vazio e se tem a quantidade de digitos correta
+
+    tamanho = percorrerVerificarTamanho(campos)
+    vazio = percorrerVerificarVazio(campos)
+
+    console.log("validação tamanho:"+tamanho)
+    console.log("validação vazio:"+vazio)
+
+    if ( tamanho && vazio  ) {
+        if (vazio == false) {
+            alert ("preencha todos os campos marcados em vermelho!")
+        }
+        return false
+    } return true
+
+
+
+}
+
+function percorrerVerificarTamanho (campos) {
     campos.forEach(element => {
         try {
-            camposVazios += verificarVazio(element)
-            
-
             switch (element.id) {
                 case 'cpfCnpj':
                     if (tipocpf){
@@ -71,27 +86,21 @@ function validaDados() {
                 default:
                     break;
             }
+            return true
         } catch (error) {
-            validaTam = 1
             alert(error)
-            var mensagem = error
-            return false
-        }
+        } finally { return false }
+    });
+}
+
+function percorrerVerificarVazio (campos) {
+    campos.forEach(element => {
+        camposVazios += verificarVazio(element)
     });
 
-
-    if(camposVazios > 0 ) {
-        console.log(camposVazios)
-        console.log(validaTam)
-        alert("preencha todos os campos!")
+    if (camposVazios > 0) {
         return false
-    } else if (validaTam != 0){
-        alert(mensagem)
-        return false
-    } else return true
-
-
-
+    } return true
 }
 
 function verificarTamanho(item,tamanho){
@@ -104,7 +113,7 @@ function verificarTamanho(item,tamanho){
 function verificarVazio(item) {
     if (item.value.length == '' && item.id != 'telefone2' && item.disabled == false ){
         item.classList.add('erro')
-        return 1
+        return 1 
     } else {
         item.classList.remove('erro')
         return 0
