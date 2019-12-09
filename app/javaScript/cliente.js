@@ -175,20 +175,25 @@ function verificarVazio(item) {
 /*
     Lógicas para validação de dados nas views relacionadas a categoria
 */
+
 //recolhe os campos que vao ser modificados e passa para uma função modificalos
 function habilitarEdicao (id) {
     //mudar o botão para se tornar salvar e habilitar os campos para edição
     var btnAlterar = document.getElementById(id)
     var inputs = document.getElementsByClassName(id)
+    
     alterarHabilitar(btnAlterar,inputs,id)    
 
     return false
 }
 
 //seta variaveis com os campos para enviar pro banco de dados
-function habilitarSubmissao(id) {
+function habilitarSubmissao(id,pagina) {
     var inputs = document.getElementsByClassName(id)
-    verificarSubmissao(inputs,id)
+    if (pagina == "categoria") {
+        verificarSubmissao(inputs,id)
+    } else criarSubmissaoModelo(inputs,id)
+    
 }
 
 //cria um formulario com os campos alterados e envia para o banco de dados
@@ -222,6 +227,37 @@ function verificarSubmissao(inputs,id) {
     return false
 }
 
+//cria um formulario com os campos alterados e envia para o banco de dados
+function criarSubmissaoModelo(inputs,id) {
+    
+    var form = document.createElement("form");
+
+    form.method = "POST";
+    form.action = "?pagina=modelo&metodo=alterarModelo";
+    
+    for (let index = 0; index < inputs.length; index++) {
+        form.appendChild(retornaInput(inputs[index])) 
+    }
+
+    var elementoId = document.createElement("input");
+    elementoId.value = id;
+    elementoId.name = "modelo_id";
+    form.appendChild(elementoId)
+
+    document.body.appendChild(form);
+
+    form.submit();
+
+    return false
+}
+
+function retornaInput (input) {
+    var elemento = document.createElement("input");
+    elemento.value = input.value;
+    elemento.name = input.name;
+    return elemento
+}
+
 //altera o botão e habilita os inputs
 function alterarHabilitar(btn,inputs,id) {
     //trocar o botão de alterar para salvar 
@@ -235,9 +271,10 @@ function alterarHabilitar(btn,inputs,id) {
     btnSalvar.classList.remove('escondido')
 
     //habilitar inputs
-    inputs[0].disabled = false
-    inputs[1].disabled = false
-
+    for (let index = 0; index < inputs.length; index++) {
+        inputs[index].disabled = false
+        
+    }
     inputs[0].focus()
 
 }
@@ -254,6 +291,24 @@ function validaDadosCategoria () {
     });
 
     if (camposVazios > 0) {
+        return false
+    } return true
+}
+
+/*
+    Lógicas para validação de dados nas views relacionadas a modelo
+*/
+//verifica se os campos de cadastrar modelo estão vazios
+function validaDadosModelo () {
+    var campos = document.getElementsByClassName('modelo')
+    var camposVazios = 0
+
+    for (let index = 0; index < campos.length; index++) {
+        camposVazios += verificarVazio(campos[index]);    
+    }
+
+    if (camposVazios > 0) {
+        alert("preencha todos os campos")
         return false
     } return true
 }

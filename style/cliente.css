@@ -40,4 +40,13 @@ tr.clicavel:hover {
 .escondido {
     visibility: hidden;
 }
+/*
+    inputs da home de modelo 
+*/
+.input-number {
+    width: 100px;
+}
 
+.input-select {
+    width: 200px;
+}

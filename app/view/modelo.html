@@ -1,0 +1,180 @@
+<div class="container">
+        <div class="row justify-content-center align-items-center">
+            <div class="col-3">
+                <a name="" id="" class="btn btn-primary btn-lg" href="http://localhost/blockbuster/?pagina=modelo&metodo=cadastrarModelo" onsubmit="" role="button">cadastrar</a>
+            </div>
+            
+            <div class="col-7">
+                <!--pesquisa de cliente-->
+                <form class="form-row my-2 my-lg-0 ">
+                    <input class="form-control mr-sm-2 col-9" type="text" placeholder="Nome da categoria">
+                    <a name="" id="" class="btn btn-primary col-2" href="#" role="button"><i class="texto-pesquisa fa fa-search" aria-hidden="true"></i></a>
+                </form>
+    
+            </div>
+    
+    
+        </div>
+    </div>
+    
+    <div class="container mt-5">
+    
+        <div class="row justify-content-center">
+            <div class="col-12">
+                
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Passageiros</th>
+                                <th>Fabricação</th>
+                                <th>Modelo</th>
+                                <th>Combustível</th>
+                                <th>Potência</th>
+                                <th>Porta Malas</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <form action="" method="post"></form>
+                            
+                                {% for modelo in modelos %}
+    
+                                    <tr class="clicavel">
+                                        <!--nome-->
+                                        <td scope="row">
+                                            <input
+                                            size="10" 
+                                            class="{{modelo.modelo_id}} desabilitado " 
+                                            class="form-text" 
+                                            type="text" 
+                                            name="nome"
+                                            disabled 
+                                            value="{{modelo.nome}}">
+                                        </td>
+                                        <!--qtd passageiros-->
+                                        <td>
+                                            <input 
+                                            class="{{modelo.modelo_id}}  input-number desabilitado" 
+                                            type="number" 
+                                            name="qtd_passageiros"
+                                            disabled 
+                                            value="{{modelo.qtd_passageiros}}">
+                                        </td>
+
+                                        <!--fabricação-->
+                                        <td>
+                                            <input 
+                                            size="4"
+                                            class="{{modelo.modelo_id}} input-number desabilitado" 
+                                            type="number" 
+                                            name="ano_fabricacao"
+                                            disabled 
+                                            value="{{modelo.ano_fabricacao}}">
+                                        </td>
+
+                                        <!--ano do modelo-->
+                                        <td>
+                                            <input 
+                                            size="4"
+                                            class="{{modelo.modelo_id}} input-number  desabilitado" 
+                                            type="number" 
+                                            name="ano_modelo"
+                                            disabled 
+                                            value="{{modelo.ano_modelo}}">
+                                        </td>
+
+                                        <!--combustivel-->
+                                        <td>
+                                            <fieldset>
+                                                <select disabled id="select-combustivel" class="{{modelo.modelo_id}} input-select desabilitado custom-select col-8" name="combustivel" id="anos">
+                                                        <option disabled alue="0">combustivel</option>
+                                                        
+                                                            <option
+                                                            
+                                                            {% if modelo.combustivel == "alcool" %}
+                                                                selected="selected" 
+                                                            {% endif %}
+
+                                                            value="alcool">alcool</option>
+                                                        
+                                                            <option
+                                                            
+                                                            {% if modelo.combustivel == "gasolina" %}
+                                                                selected="selected" 
+                                                            {% endif %}
+                                                            value="gasolina">gasolina</option>
+
+                                                            <option 
+                                                            
+                                                            {% if modelo.combustivel == "flex" %}
+                                                                selected="selected" 
+                                                            {% endif %}
+                                                            value="flex">flex</option>
+                                                </select>
+                                            </fieldset>
+                                        </td>
+
+                                         <!--potencia-->
+                                         <td>
+                                            <input 
+                                            class="{{modelo.modelo_id}} input-number desabilitado" 
+                                            type="number"  
+                                            name="potencia"
+                                            disabled 
+                                            value="{{modelo.potencia}}">
+                                        </td>
+
+                                        <!--porta malas-->
+                                        <td>
+                                            <input 
+                                            class="{{modelo.modelo_id}} input-number desabilitado" 
+                                            type="number"  
+                                            name="porta_malas"
+                                            disabled 
+                                            value="{{modelo.porta_malas}}">
+                                        </td>
+    
+                                        <td>
+                                            <a 
+                                            name="deletar" 
+                                            id="deletar-modelo" 
+                                            class="btn btn-danger"  
+                                            href="http://localhost/blockbuster/?pagina=modelo&metodo=deletarModelo&id={{modelo.modelo_id}}" 
+                                            role="button">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+    
+                                        <td>
+                                            <input
+                                            type="submit" 
+                                            name="alterar-modelo"
+                                            id="{{modelo.modelo_id}}"  
+                                            class="alterar btn btn-sm btn-primary" 
+                                            onclick="return habilitarEdicao({{modelo.modelo_id}});"
+                                            role="button"
+                                            value="alterar">
+    
+                                            <input
+                                            type="submit" 
+                                            name="alterar-modelo"  
+                                            class="alterar escondido btn btn-sm btn-success" 
+                                            id="btn-salvar-{{modelo.modelo_id}}"
+                                            onclick="return habilitarSubmissao({{modelo.modelo_id}});"
+                                            role="button"
+                                            value="salvar">
+                                        </td>
+
+                
+                                    </tr>
+    
+                                {% endfor %}
+                        </tbody>
+                    </table>
+            </div>
+        </div>
+    
+    </div>
+    

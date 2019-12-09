@@ -10,6 +10,8 @@ require_once 'lib/database/conection.php';
 require_once 'vendor/autoload.php';
 require_once 'app/controller/categoriaController.php';
 require_once 'app/model/categoria.php';
+require_once 'app/controller/modeloController.php';
+require_once 'app/model/modelo.php';
 
 $template = file_get_contents('app\template\estrutura.html');
 

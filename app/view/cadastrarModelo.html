@@ -1,0 +1,129 @@
+
+<div  class="container mt-4 shadow-lg" >
+    
+        <div class="container">
+            <div class="row">
+                <div class="col-7">
+                    <h1 class="font-weight-light pl-4 pt-4">Dados do Modelo</h1>
+                </div>
+    
+                <div class="pt-3 col-4 ">
+                    <small class="mr-0">*campos obrigatórios</small>
+                </div>
+            </div>
+        </div>
+        
+        <form action="?pagina=modelo&metodo=realizarCadastro" onsubmit="return validaDadosModelo()" method="POST">
+        
+            <div class="row p-4 justify-content-around">
+    
+                <div class="col-5 ">
+                                        
+                    <!--nome-->
+                    <label for="cpf/cnpj">Nome * </label>
+                    <input
+                    size="20"  
+                    class="modelo form-control" 
+                    type="text" 
+                    name="nome"
+                    >
+                </div>
+
+                <div class="col-2 ">
+                                        
+                    <!--qtd passageiros-->
+                    <label for="cpf/cnpj">Passageiros * </label>
+                    <input 
+                    class="modelo form-control" 
+                    type="number" 
+                    name="qtd_passageiros">
+                </div>
+
+                <div class="col-2 ">
+                                        
+                    <!--fabricação-->
+                    <label for="cpf/cnpj">Fabricação * </label>
+                    <input 
+                    class="modelo form-control" 
+                    type="number" 
+                    name="ano_fabricacao">
+                </div>
+
+                <div class="col-2 ">
+                                    
+                    <!--ano do modelo-->
+                    <label for="cpf/cnpj">Modelo * </label>
+                    <input 
+                    class="modelo form-control" 
+                    type="number" 
+                    name="ano_modelo">
+                </div>
+
+            </div>
+
+            <div class="row p-4 justify-content-around">
+    
+                <div class="col-4 ">
+                                        
+                    <!--combustivel-->
+                    <label for="cpf">Combustivel * </label>
+                    <select id="select-combustivel" class="modelo custom-select" name="combustivel" id="anos">
+                            <option
+                            value="alcool">
+                                alcool
+                            </option>
+                        
+                            <option
+                            value="gasolina">
+                                gasolina
+                            </option>
+
+                            <option 
+                            value="flex">
+                                flex
+                            </option>
+                        </select>
+                    </fieldset>
+
+                </div>
+
+                <div class="col-4 ">
+                                        
+                    <!-- Potência-->
+                    <label for="potencia">Potência * </label>
+                    <input 
+                    class="modelo form-control" 
+                    type="number"  
+                    name="potencia">
+                </div>
+
+                <div class="col-4 ">
+                                        
+                    <!-- Porta malas-->
+                    <label for="porta_malas">Porta malas * </label>
+                    <input 
+                    class="modelo form-control" 
+                    type="number"  
+                    name="porta_malas">
+                </div>
+            </div>
+    
+            
+            <div class="row justify-content-around mt-4 pb-4">
+                <div class="col-4">
+                    <!-- botão cancelar-->
+                    <div class="row justify-content-center">
+                        <a name="" id="" class="col-10 btn btn-danger" href="http://localhost/blockbuster/?pagina=modelo" role="button">cancelar</a>
+                    </div>
+                </div>
+                <!-- botão alterar-->
+                <div class="col-4">
+                    <div class="row justify-content-center">
+                        <input type="submit" onclick=""  value="cadastrar" class="btn btn-success col-10">
+                    </div>
+                </div>
+            </div>
+        
+        </form>
+    
+    </div>
