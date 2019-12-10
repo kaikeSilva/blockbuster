@@ -192,8 +192,10 @@ function habilitarSubmissao(id,pagina) {
     var inputs = document.getElementsByClassName(id)
     if (pagina == "categoria") {
         verificarSubmissao(inputs,id)
-    } else criarSubmissaoModelo(inputs,id)
-    
+    } else if (pagina == "modelo")
+    {
+        criarSubmissaoModelo(inputs,id)
+    } else criarSubmissaoMarca(inputs,id)
 }
 
 //cria um formulario com os campos alterados e envia para o banco de dados
@@ -245,7 +247,30 @@ function criarSubmissaoModelo(inputs,id) {
     form.appendChild(elementoId)
 
     document.body.appendChild(form);
+    
 
+    form.submit();
+
+    return false
+}
+
+function criarSubmissaoMarca (inputs,id) {
+     
+    var form = document.createElement("form");
+
+    form.method = "POST";
+    form.action = "?pagina=marca&metodo=alterarMarca";
+    
+    for (let index = 0; index < inputs.length; index++) {
+        form.appendChild(retornaInput(inputs[index])) 
+    }
+
+    var elementoId = document.createElement("input");
+    elementoId.value = id;
+    elementoId.name = "marca_id";
+    form.appendChild(elementoId)
+
+    document.body.appendChild(form);
     form.submit();
 
     return false
@@ -268,6 +293,7 @@ function alterarHabilitar(btn,inputs,id) {
     var idBtn = "btn-salvar-"+id
     var btnSalvar = document.getElementById(idBtn)
     console.log(idBtn)
+    console.log(btnSalvar)
     btnSalvar.classList.remove('escondido')
 
     //habilitar inputs
@@ -312,3 +338,8 @@ function validaDadosModelo () {
         return false
     } return true
 }
+
+/*
+    Lógicas para validação de dados nas views relacionadas a marcas
+*/
+

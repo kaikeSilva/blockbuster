@@ -297,7 +297,6 @@
             
             $resultado = $sql->execute();
 
-            var_dump($resultado);
 
             return true;
         }

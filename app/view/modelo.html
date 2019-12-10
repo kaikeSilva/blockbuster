@@ -7,7 +7,7 @@
             <div class="col-7">
                 <!--pesquisa de cliente-->
                 <form class="form-row my-2 my-lg-0 ">
-                    <input class="form-control mr-sm-2 col-9" type="text" placeholder="Nome da categoria">
+                    <input class="form-control mr-sm-2 col-9" type="text" placeholder="Nome do modelo">
                     <a name="" id="" class="btn btn-primary col-2" href="#" role="button"><i class="texto-pesquisa fa fa-search" aria-hidden="true"></i></a>
                 </form>
     
@@ -162,7 +162,7 @@
                                             name="alterar-modelo"  
                                             class="alterar escondido btn btn-sm btn-success" 
                                             id="btn-salvar-{{modelo.modelo_id}}"
-                                            onclick="return habilitarSubmissao({{modelo.modelo_id}});"
+                                            onclick="return habilitarSubmissao({{modelo.modelo_id}},'modelo');"
                                             role="button"
                                             value="salvar">
                                         </td>

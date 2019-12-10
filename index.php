@@ -12,6 +12,8 @@ require_once 'app/controller/categoriaController.php';
 require_once 'app/model/categoria.php';
 require_once 'app/controller/modeloController.php';
 require_once 'app/model/modelo.php';
+require_once 'app/controller/marcaController.php';
+require_once 'app/model/marca.php';
 
 $template = file_get_contents('app\template\estrutura.html');
 

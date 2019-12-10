@@ -8,3 +8,8 @@ CREATE TABLE modelo (
     potencia int(9) not null,
     porta_malas float not null   
 )
+
+CREATE TABLE marca (
+	marca_id int PRIMARY KEY AUTO_INCREMENT,
+    nome	varchar(40) NOT null
+)
