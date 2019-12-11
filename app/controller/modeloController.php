@@ -10,6 +10,8 @@
             try {
                 //solicitação ao banco
                 $colecaoModelos = Modelo::selecionaTodos();
+                $colecaoMarcas = Marca::selecionaTodos();
+                
 
                 /*
                     twig é uma api que permite mostrar conteudos na view sem a necessidade de escrever
@@ -28,6 +30,9 @@
                 //array com chaves parametros para substituir na view
                 $parametros = array();
                 $parametros['modelos'] = $colecaoModelos;
+
+                //array com chaves parametros das marcas para subtituir na view
+                $parametros['marcas'] = $colecaoMarcas;
                 $conteudo = $template->render($parametros);
                 echo $conteudo;
                 
@@ -37,7 +42,7 @@
                 $loader = new \Twig\Loader\FilesystemLoader('app/view');
                 $twig = new \Twig\Environment($loader);
                 $template = $twig->load('modelo.html');
-                $conteudo = $template->render();
+
                 echo $conteudo;
             } 
 
@@ -46,7 +51,9 @@
         
         public function alterarModelo() 
         {
-            
+            $marcaId = $_POST['marca'];
+
+            $marcaId = Modelo::retornaId($marcaId);
             
             //preparar os dados de modelo
             $modelo = array();
@@ -57,6 +64,7 @@
             $modelo['combustivel'] = $_POST['combustivel'];
             $modelo['potencia'] = $_POST['potencia'];
             $modelo['porta_malas'] = $_POST['porta_malas'];
+            $modelo['marca_id'] = $marcaId[0]->marca_id;
             $modelo['modelo_id'] = $_POST['modelo_id'];
             
 
@@ -79,6 +87,8 @@
         public function cadastrarModelo()
         {
             try {
+                $marcas = Marca::selecionaTodos();
+                
 
                 /*
                     twig é uma api que permite mostrar conteudos na view sem a necessidade de escrever
@@ -98,6 +108,7 @@
 
 
                 $parametros = array();
+                $parametros['marcas'] = $marcas;
                 $conteudo = $template->render($parametros);
 
                 echo $conteudo;
@@ -112,7 +123,7 @@
         public function realizarCadastro() 
         {
             //preparar os dados de modelo
-
+            var_dump($_POST);
             $modelo = array();
             $modelo['nome'] = $_POST['nome'];
             $modelo['qtd_passageiros'] = $_POST['qtd_passageiros'];
@@ -121,6 +132,7 @@
             $modelo['combustivel'] = $_POST['combustivel'];
             $modelo['potencia'] = $_POST['potencia'];
             $modelo['porta_malas'] = $_POST['porta_malas'];
+            $modelo['marca_id'] = $_POST['marca_id'];
 
             try {
                 //enviar dados para o banco
@@ -129,13 +141,11 @@
                 $url['pagina'] = 'modelo';
                 Core::start($url);
             } catch (Exception $e) {
-                //mostrar erro natela
-
-
-                //recarregar a página
-                $url['pagina'] = 'modelo';
-                $url['metodo'] = 'cadastrarModelo';
-                Core::start($url);
+                //mostrar erro na tela
+                echo '<script language="javascript">';
+                echo 'alert("'.$e->getMessage().'");';
+                echo 'location.href = "http://localhost/blockbuster/?pagina=modelo&metodo=cadastrarModelo"';
+                echo '</script>';
             }
 
         }

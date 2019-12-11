@@ -181,8 +181,6 @@
             /*pegar a conexão com o banco de dados para interagir com o banco
             pedindo o dado do cliente com o id correspondente*/
             $con = Connection::getConn();
-            try 
-            {
               
                 //testar se existem pessoas cadastradas com o cpf /cnpj enviados           
                 if($tipo == 'f') {
@@ -260,28 +258,9 @@
 
 
                     }
-
-                    return $resultado;
-
                 } else {
-                    var_dump($podeInserir);
-                    $resultado = false;
                     throw new Exception("cpf/cnpj repitidos");
                 }
-                
-            } catch (PDOException $th) {
-                return $resultado;
-                echo($th);
-            }
-           
-
-            
-            if (!$resultado) {
-                throw new Exception("Não foi possibel inserir no banco de dados");
-                return $resultado;
-            }
-
-            return $resultado;
         }
 
         static function deletar($id) {

@@ -45,7 +45,8 @@
                 ano_modelo = :ano_modelo,
                 combustivel = :combustivel,
                 potencia = :potencia,
-                porta_malas = :porta_malas
+                porta_malas = :porta_malas,
+                marca_id = :marca_id
                 WHERE modelo.modelo_id = :id
                 ";
 
@@ -58,6 +59,7 @@
                 $sql->bindValue(':combustivel', $modelo['combustivel'], PDO::PARAM_STR);
                 $sql->bindValue(':potencia', $modelo['potencia'], PDO::PARAM_STR);
                 $sql->bindValue(':porta_malas', $modelo['porta_malas'], PDO::PARAM_STR);
+                $sql->bindValue(':marca_id', $modelo['marca_id'], PDO::PARAM_STR);
                 $sql->bindValue(':id', $modelo['modelo_id'], PDO::PARAM_STR);
                 $resultado = $sql->execute();
 
@@ -72,18 +74,18 @@
         static function cadastrarModelo($modelo) {
             /*pegar a conexão com o banco de dados para interagir com o banco*/
             $con = Connection::getConn();
-
+            var_dump($modelo);
             try 
             {
                 //futura implementação de restrição ao inserir modelo
-                if(true){
+                if(Modelo::testarRepitido($modelo['nome'])){
 
                     //inserir o modelo
                     $sql = "INSERT INTO  modelo
                     ( nome, qtd_passageiros, ano_fabricacao, 
-                    ano_modelo, combustivel, potencia, porta_malas)
+                    ano_modelo, combustivel, potencia, porta_malas, marca_id)
                     VALUES ( :nome, :qtd_passageiros, :ano_fabricacao,
-                    :ano_modelo, :combustivel, :potencia, :porta_malas)
+                    :ano_modelo, :combustivel, :potencia, :porta_malas, :marca_id)
                     ";
 
                     $sql = $con->prepare($sql);
@@ -94,13 +96,13 @@
                     $sql->bindValue(':combustivel', $modelo['combustivel'], PDO::PARAM_STR);
                     $sql->bindValue(':potencia', $modelo['potencia'], PDO::PARAM_STR);
                     $sql->bindValue(':porta_malas', $modelo['porta_malas'], PDO::PARAM_STR);
+                    $sql->bindValue(':marca_id', $modelo['marca_id'], PDO::PARAM_STR);
                     
                     $resultado = $sql->execute();
                     return $resultado;
 
                 } else {
-                    $resultado = false;
-                    throw new Exception("nome da categoria ja existe");
+                    throw new Exception("nome do modelo ja existe");
                 }
                 
             } catch (PDOException $th) {
@@ -117,8 +119,8 @@
             $con = Connection::getConn();
             
             //verificar pf se cpf ou pessoa juridica se cnpj
-            $sql = "SELECT * FROM categoria
-            where categoria.nome = :nome;";
+            $sql = "SELECT * FROM modelo
+            where modelo.nome = :nome;";
 
             $sql = $con->prepare($sql);
             $sql->bindValue(':nome', $nome, PDO::PARAM_STR);
@@ -153,6 +155,28 @@
             $resultado = $sql->execute();
 
             return true;
+        }
+
+        public static function retornaId($nomeMarca) {
+            $con = Connection::getConn();
+
+            $sql = "SELECT marca_id FROM marca
+            where marca.nome = :nome";
+            $sql = $con->prepare($sql);
+            $sql->bindValue(':nome', $nomeMarca, PDO::PARAM_STR);
+            $sql->execute();
+
+            /*
+                apos executar a query armazenar as linhas vindas do banco
+                em um array, se o array estiver vazio sinalizar isso para a controller.
+            */
+            $resultado = array();
+
+            while($row = $sql->fetchObject('Marca')) {
+                $resultado[] = $row;
+            }
+
+            return $resultado;
         }
     }
 

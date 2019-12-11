@@ -184,16 +184,9 @@
 
                 }
 
-                if ($update ) {
 
-                    $url['pagina'] = 'cliente';
-                    $url['metodo'] = 'index';
-                    Core::start($url);
-
-                } else {
-                    
-                    $mensagem = "não inserido no banco de dados";
-                }
+                $url['pagina'] = 'cliente';
+                Core::start($url);
 
             } catch (Exception $e) {
                 echo '<script language="javascript">';

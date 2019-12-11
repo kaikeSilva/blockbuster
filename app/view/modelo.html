@@ -32,6 +32,7 @@
                                 <th>Combustível</th>
                                 <th>Potência</th>
                                 <th>Porta Malas</th>
+                                <th>Marca</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -135,7 +136,27 @@
                                             disabled 
                                             value="{{modelo.porta_malas}}">
                                         </td>
-    
+
+                                        <!--marca-->
+                                        <td>
+                                            <fieldset>
+                                                <select disabled id="select-combustivel" class="{{modelo.modelo_id}} input-select desabilitado custom-select col-8" name="marca" id="anos">
+                                                        <option disabled alue="0">marcas</option>
+                                                        {% for marca in marcas %}
+                                                            <option
+                                                                {% if modelo.marca_id == marca.marca_id %}
+                                                                    selected="selected" 
+                                                                {% endif %}
+                                                                
+                                                                value="{{marca.nome}}">
+                                                                {{marca.nome}}
+                                                            </option>
+                                                        {% endfor %}
+                                                </select>
+                                            </fieldset>
+                                        </td>
+
+                                        
                                         <td>
                                             <a 
                                             name="deletar" 

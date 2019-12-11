@@ -277,10 +277,19 @@ function criarSubmissaoMarca (inputs,id) {
 }
 
 function retornaInput (input) {
-    var elemento = document.createElement("input");
-    elemento.value = input.value;
-    elemento.name = input.name;
-    return elemento
+    
+    if(input.nodeName == "SELECT") {
+        var elemento = document.createElement("input");
+        elemento.value = input.options[input.selectedIndex].value;
+        elemento.name =  input.name;
+        return elemento
+    } else {
+        var elemento = document.createElement("input");
+        elemento.value = input.value;
+        elemento.name = input.name;
+        return elemento
+    }
+    
 }
 
 //altera o botão e habilita os inputs
@@ -327,6 +336,13 @@ function validaDadosCategoria () {
 //verifica se os campos de cadastrar modelo estão vazios
 function validaDadosModelo () {
     var campos = document.getElementsByClassName('modelo')
+    
+    
+    //setar o id do selecionado
+    var marca = document.getElementById('marca')
+    var idModelo = document.getElementById('select-marca')
+    marca.value = idModelo[idModelo.selectedIndex].id
+
     var camposVazios = 0
 
     for (let index = 0; index < campos.length; index++) {
