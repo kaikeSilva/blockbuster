@@ -173,7 +173,6 @@
             Core::start($url);
         }
 
-
     //fechamento da classe
     }
 ?>

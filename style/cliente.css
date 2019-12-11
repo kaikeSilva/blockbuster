@@ -54,3 +54,13 @@ tr.clicavel:hover {
 .largura-total {
     width: 90% !important; 
 }
+
+.cobrir-tela {
+    width: 100%;
+    left: -100px;
+    position: relative;
+}
+
+.zoom {
+    zoom: .85;
+}
