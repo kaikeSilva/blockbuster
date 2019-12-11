@@ -33,6 +33,7 @@
                                 <th>Potência</th>
                                 <th>Porta Malas</th>
                                 <th>Marca</th>
+                                <th>Categoria</th>
                                 <th></th>
                                 <th></th>
                             </tr>
@@ -155,7 +156,25 @@
                                                 </select>
                                             </fieldset>
                                         </td>
-
+                                        
+                                         <!--categoria-->
+                                         <td>
+                                            <fieldset>
+                                                <select disabled id="select-categoria" class="{{modelo.modelo_id}} input-select desabilitado custom-select col-8" name="categoria" id="">
+                                                        <option disabled alue="0">categorias</option>
+                                                        {% for categoria in categorias %}
+                                                            <option
+                                                                {% if categoria.categoria_id == modelo.categoria_id %}
+                                                                    selected="selected" 
+                                                                {% endif %}
+                                                                class="{{categoria.categoria_id}}"
+                                                                value="{{categoria.nome}}">
+                                                                {{categoria.nome}}
+                                                            </option>
+                                                        {% endfor %}
+                                                </select>
+                                            </fieldset>
+                                        </td>
                                         
                                         <td>
                                             <a 

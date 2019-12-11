@@ -188,13 +188,14 @@ function habilitarEdicao (id) {
 }
 
 //seta variaveis com os campos para enviar pro banco de dados
-function habilitarSubmissao(id,pagina) {
-    var inputs = document.getElementsByClassName(id)
+function habilitarSubmissao(idMarca,pagina) {
+    var inputs = document.getElementsByClassName(idMarca)
     if (pagina == "categoria") {
         verificarSubmissao(inputs,id)
     } else if (pagina == "modelo")
-    {
-        criarSubmissaoModelo(inputs,id)
+    {   var idCategoria = document.getElementById('select-categoria')[document.getElementById('select-categoria').selectedIndex].className 
+        criarSubmissaoModelo(inputs,idMarca,idCategoria)
+
     } else criarSubmissaoMarca(inputs,id)
 }
 
@@ -230,7 +231,7 @@ function verificarSubmissao(inputs,id) {
 }
 
 //cria um formulario com os campos alterados e envia para o banco de dados
-function criarSubmissaoModelo(inputs,id) {
+function criarSubmissaoModelo(inputs,idMarca, idCategoria) {
     
     var form = document.createElement("form");
 
@@ -241,10 +242,17 @@ function criarSubmissaoModelo(inputs,id) {
         form.appendChild(retornaInput(inputs[index])) 
     }
 
+    //marca escolhida
     var elementoId = document.createElement("input");
-    elementoId.value = id;
+    elementoId.value = idMarca;
     elementoId.name = "modelo_id";
     form.appendChild(elementoId)
+
+    //categoria escolhida
+    var categoriaId = document.createElement("input");
+    categoriaId.value = idCategoria;
+    categoriaId.name = "categoria_id";
+    console.log(categoriaId.value)
 
     document.body.appendChild(form);
     
@@ -338,10 +346,17 @@ function validaDadosModelo () {
     var campos = document.getElementsByClassName('modelo')
     
     
-    //setar o id do selecionado
+    //setar o id da marca selecionad
     var marca = document.getElementById('marca')
     var idModelo = document.getElementById('select-marca')
     marca.value = idModelo[idModelo.selectedIndex].id
+
+    //setar o id da marca selecionad
+    var categoria = document.getElementById('categoria')
+    var idCategoria = document.getElementById('select-categoria')
+    var idCat = idCategoria[idCategoria.selectedIndex].id.replace("cat-","")
+    categoria.value = idCat
+    
 
     var camposVazios = 0
 

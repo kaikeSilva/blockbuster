@@ -11,6 +11,7 @@
                 //solicitação ao banco
                 $colecaoModelos = Modelo::selecionaTodos();
                 $colecaoMarcas = Marca::selecionaTodos();
+                $colecaoCategorias = Categoria::selecionaTodos();
                 
 
                 /*
@@ -34,6 +35,10 @@
                 //array com chaves parametros das marcas para subtituir na view
                 $parametros['marcas'] = $colecaoMarcas;
                 $conteudo = $template->render($parametros);
+                
+                //array com chaves parametros das marcas para subtituir na view
+                $parametros['categorias'] = $colecaoCategorias;
+                $conteudo = $template->render($parametros);
                 echo $conteudo;
                 
                 //caso lançado algum erro, exibir a mensagem e carregar a pagina sem os dados
@@ -51,9 +56,12 @@
         
         public function alterarModelo() 
         {
-            $marcaId = $_POST['marca'];
+            //buscar o id da marca e da categoria do modelo
+            $nomeMarca = $_POST['marca'];
+            $nomeCategoria = $_POST['categoria'];
 
-            $marcaId = Modelo::retornaId($marcaId);
+            $marcaId = Marca::retornaId($nomeMarca);
+            $categoriaId = Categoria::retornaId($nomeCategoria);
             
             //preparar os dados de modelo
             $modelo = array();
@@ -66,6 +74,7 @@
             $modelo['porta_malas'] = $_POST['porta_malas'];
             $modelo['marca_id'] = $marcaId[0]->marca_id;
             $modelo['modelo_id'] = $_POST['modelo_id'];
+            $modelo['categoria_id'] = $categoriaId[0]->categoria_id;
             
 
             /*
@@ -88,6 +97,7 @@
         {
             try {
                 $marcas = Marca::selecionaTodos();
+                $categorias = Categoria::selecionaTodos();
                 
 
                 /*
@@ -106,9 +116,11 @@
                 $twig = new \Twig\Environment($loader);
                 $template = $twig->load('cadastrarModelo.html');
 
-
+                //carregar marcas para o select
                 $parametros = array();
                 $parametros['marcas'] = $marcas;
+                //carregar categorias para o select
+                $parametros['categorias'] = $categorias;
                 $conteudo = $template->render($parametros);
 
                 echo $conteudo;
@@ -123,7 +135,6 @@
         public function realizarCadastro() 
         {
             //preparar os dados de modelo
-            var_dump($_POST);
             $modelo = array();
             $modelo['nome'] = $_POST['nome'];
             $modelo['qtd_passageiros'] = $_POST['qtd_passageiros'];
@@ -133,6 +144,7 @@
             $modelo['potencia'] = $_POST['potencia'];
             $modelo['porta_malas'] = $_POST['porta_malas'];
             $modelo['marca_id'] = $_POST['marca_id'];
+            $modelo['categoria_id'] = $_POST['categoria_id'];
 
             try {
                 //enviar dados para o banco

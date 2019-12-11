@@ -46,7 +46,8 @@
                 combustivel = :combustivel,
                 potencia = :potencia,
                 porta_malas = :porta_malas,
-                marca_id = :marca_id
+                marca_id = :marca_id,
+                categoria_id = :categoria_id
                 WHERE modelo.modelo_id = :id
                 ";
 
@@ -61,6 +62,7 @@
                 $sql->bindValue(':porta_malas', $modelo['porta_malas'], PDO::PARAM_STR);
                 $sql->bindValue(':marca_id', $modelo['marca_id'], PDO::PARAM_STR);
                 $sql->bindValue(':id', $modelo['modelo_id'], PDO::PARAM_STR);
+                $sql->bindValue(':categoria_id', $modelo['categoria_id'], PDO::PARAM_STR);
                 $resultado = $sql->execute();
 
             } catch (Exception $th) {
@@ -74,7 +76,6 @@
         static function cadastrarModelo($modelo) {
             /*pegar a conexão com o banco de dados para interagir com o banco*/
             $con = Connection::getConn();
-            var_dump($modelo);
             try 
             {
                 //futura implementação de restrição ao inserir modelo
@@ -83,9 +84,9 @@
                     //inserir o modelo
                     $sql = "INSERT INTO  modelo
                     ( nome, qtd_passageiros, ano_fabricacao, 
-                    ano_modelo, combustivel, potencia, porta_malas, marca_id)
+                    ano_modelo, combustivel, potencia, porta_malas, marca_id, categoria_id)
                     VALUES ( :nome, :qtd_passageiros, :ano_fabricacao,
-                    :ano_modelo, :combustivel, :potencia, :porta_malas, :marca_id)
+                    :ano_modelo, :combustivel, :potencia, :porta_malas, :marca_id, :categoria_id)
                     ";
 
                     $sql = $con->prepare($sql);
@@ -97,6 +98,7 @@
                     $sql->bindValue(':potencia', $modelo['potencia'], PDO::PARAM_STR);
                     $sql->bindValue(':porta_malas', $modelo['porta_malas'], PDO::PARAM_STR);
                     $sql->bindValue(':marca_id', $modelo['marca_id'], PDO::PARAM_STR);
+                    $sql->bindValue(':categoria_id', $modelo['categoria_id'], PDO::PARAM_STR);
                     
                     $resultado = $sql->execute();
                     return $resultado;

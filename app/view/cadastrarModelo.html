@@ -11,7 +11,7 @@
                     <small class="mr-0">*campos obrigatórios</small>
                 </div>
             </div>
-        </div>
+        </div> 
         
         <form action="?pagina=modelo&metodo=realizarCadastro" onsubmit="return validaDadosModelo()" method="POST">
         
@@ -26,12 +26,21 @@
                     class="modelo form-control" 
                     type="text" 
                     name="nome">
-                    <!--id-->
+                    <!--id marrca-->
                     <input 
                     id="marca"
                     class="input-number desabilitado" 
                     type="number"  
                     name="marca_id"
+                    hidden 
+                    value="">
+
+                    <!--id categoria-->
+                    <input 
+                    id="categoria"
+                    class="input-number desabilitado" 
+                    type="number"  
+                    name="categoria_id"
                     hidden 
                     value="">
 
@@ -73,24 +82,42 @@
 
                 <!--marrca-->
                 
-                <div class="col-4">
-                        <label for="marca">marca * </label><br>
-                        <select id="select-marca" class=" custom-select col-8" name="marca">
-                                <option disabled alue="0">marcas</option>
-                                {% for marca in marcas %}
-                                    <option
-                                        id="{{marca.marca_id}}"
-                                        name=""
-                                        value="{{marca.nome}}">
-                                        {{marca.nome}}
-                                    </option>
-                                {% endfor %}
-                        </select>
-                    </div>
-    
-                <div class="col-4 ">
+                <div class="col-3">
+                    <label for="marca">marca * </label><br>
+                    <select id="select-marca" class=" custom-select col-8" name="marca">
+                            <option disabled alue="0">marcas</option>
+                            {% for marca in marcas %}
+                                <option
+                                    id="{{marca.marca_id}}"
+                                    name=""
+                                    value="{{marca.nome}}">
+                                    {{marca.nome}}
+                                </option>
+                            {% endfor %}
+                    </select>
+                </div>
+
+                    <!--categoria-->
+                
+                <div class="col-3">
+                    <label for="categoria">Categoria * </label><br>
+                    <select id="select-categoria" class=" custom-select col-8" name="categoria">
+                            <option disabled alue="0">marcas</option>
+                            {% for categoria in categorias %}
+                                <option
+                                    id="cat-{{categoria.categoria_id}}"
+                                    name=""
+                                    value="{{categoria.nome}}">
+                                    {{categoria.nome}}
+                                </option>
+                            {% endfor %}
+                    </select>
+                </div>
+                    
+                <!--combustivel-->
+                <div class="col-2 ">
                                         
-                    <!--combustivel-->
+                   
                     <label for="cpf">Combustivel * </label>
                     <select id="select-combustivel" class="modelo custom-select" name="combustivel" id="anos">
                             <option
@@ -111,20 +138,22 @@
                     </fieldset>
 
                 </div>
-
+                
+                <!-- Potência-->
                 <div class="col-2 ">
                                         
-                    <!-- Potência-->
+                    
                     <label for="potencia">Potência * </label>
                     <input 
                     class="modelo form-control" 
                     type="number"  
                     name="potencia">
                 </div>
-
+                
+                <!-- Porta malas-->
                 <div class="col-2 ">
                                         
-                    <!-- Porta malas-->
+                    
                     <label for="porta_malas">Porta malas * </label>
                     <input 
                     class="modelo form-control" 
