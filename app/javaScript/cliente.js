@@ -188,8 +188,8 @@ function habilitarEdicao (id) {
 }
 
 //seta variaveis com os campos para enviar pro banco de dados
-function habilitarSubmissao(idMarca,pagina) {
-    var inputs = document.getElementsByClassName(idMarca)
+function habilitarSubmissao(id,pagina) {
+    var inputs = document.getElementsByClassName(id)
     if (pagina == "categoria") {
         verificarSubmissao(inputs,id)
     } else if (pagina == "modelo")
@@ -201,8 +201,6 @@ function habilitarSubmissao(idMarca,pagina) {
 
 //cria um formulario com os campos alterados e envia para o banco de dados
 function verificarSubmissao(inputs,id) {
-    console.log(inputs)
-    console.log(id)
     var form = document.createElement("form");
     var element1 = document.createElement("input"); 
     var element2 = document.createElement("input");
@@ -235,6 +233,8 @@ function criarSubmissaoModelo(inputs,idMarca, idCategoria) {
     
     var form = document.createElement("form");
 
+    form.setAttribute("type", "hidden");
+
     form.method = "POST";
     form.action = "?pagina=modelo&metodo=alterarModelo";
     
@@ -252,7 +252,6 @@ function criarSubmissaoModelo(inputs,idMarca, idCategoria) {
     var categoriaId = document.createElement("input");
     categoriaId.value = idCategoria;
     categoriaId.name = "categoria_id";
-    console.log(categoriaId.value)
 
     document.body.appendChild(form);
     
@@ -262,9 +261,12 @@ function criarSubmissaoModelo(inputs,idMarca, idCategoria) {
     return false
 }
 
-function criarSubmissaoMarca (inputs,id) {
+function criarSubmissaoMarca (inputs,id)
+{
      
     var form = document.createElement("form");
+    form.setAttribute("type", "hidden");
+
 
     form.method = "POST";
     form.action = "?pagina=marca&metodo=alterarMarca";
@@ -303,14 +305,9 @@ function retornaInput (input) {
 //altera o botão e habilita os inputs
 function alterarHabilitar(btn,inputs,id) {
     //trocar o botão de alterar para salvar 
-    console.log(btn)
-    console.log(inputs)
-    console.log(id)
     btn.style.visibility = "hidden"
     var idBtn = "btn-salvar-"+id
     var btnSalvar = document.getElementById(idBtn)
-    console.log(idBtn)
-    console.log(btnSalvar)
     btnSalvar.classList.remove('escondido')
 
     //habilitar inputs
@@ -327,7 +324,7 @@ function validaDadosCategoria () {
     var campos = Array ()
     campos.push(document.getElementById('nome')) 
     campos.push(document.getElementById('valor'))
-    console.log(campos)
+
     var camposVazios = 0
     campos.forEach(element => {
         camposVazios += verificarVazio(element)
@@ -371,6 +368,59 @@ function validaDadosModelo () {
 }
 
 /*
-    Lógicas para validação de dados nas views relacionadas a marcas
+    Lógicas para imagens
 */
 
+//previsualizar imagem
+var loadFile = function(event) {
+    var output = document.getElementById('output');
+
+    output.src = URL.createObjectURL(event.target.files[0]);
+  };
+
+//habilitar submissao de veiculo
+function habilitarSubmissaoVeiculo (idVeiculo,idModelo) {
+    var inputs =  document.getElementsByClassName(idVeiculo);
+    var vazios = 0
+    for (let index = 0; index < inputs.length; index++) {
+        vazios += verificarVazioVeiculo(inputs[index]);
+    }
+
+    if (vazios>0) {
+        return false
+    }
+
+    var form = document.createElement("form");
+
+    form.setAttribute("type", "hidden");
+
+    form.method = "POST";
+    form.action = "?pagina=veiculo&metodo=alterarVeiculo";
+    
+    for (let index = 0; index < inputs.length; index++) {
+        form.appendChild(retornaInput(inputs[index])) 
+    }
+
+    //id do veiculo
+    var elementoId = document.createElement("input");
+    elementoId.value = idVeiculo;
+    elementoId.name = "veiculo_id";
+    form.appendChild(elementoId)
+
+
+
+    document.body.appendChild(form);
+    form.submit()
+
+}
+
+function verificarVazioVeiculo (item) {
+    if (item.value.length == '' && item.name != 'preco_venda'){
+        console.log(item)
+        item.classList.add('erro')
+        return 1 
+    } else {
+        item.classList.remove('erro')
+        return 0
+    }
+}

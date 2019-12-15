@@ -180,6 +180,28 @@
 
             return $resultado;
         }
+
+        public static function retornarModelo($id) {
+            $con = Connection::getConn();
+
+            $sql = "SELECT * FROM modelo
+            where modelo.modelo_id = :id";
+            $sql = $con->prepare($sql);
+            $sql->bindValue(':id', $id, PDO::PARAM_STR);
+            $sql->execute();
+
+            /*
+                apos executar a query armazenar as linhas vindas do banco
+                em um array, se o array estiver vazio sinalizar isso para a controller.
+            */
+            $resultado = array();
+
+            while($row = $sql->fetchObject('Modelo')) {
+                $resultado[] = $row;
+            }
+
+            return $resultado;
+        }
     }
 
 ?>

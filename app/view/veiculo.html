@@ -1,0 +1,208 @@
+<div class="container">
+    <div class="row justify-content-center align-items-center">
+        <div class="col-3">
+            <a class="btn btn-primary btn-lg" href="http://localhost/blockbuster/?pagina=veiculo&metodo=cadastrarVeiculo" onsubmit="" role="button">cadastrar</a>
+        </div>
+        
+        <div class="col-7">
+            <!--pesquisa de veiculo-->
+            <form class="form-row my-2 my-lg-0 ">
+                <input class="form-control mr-sm-2 col-9" type="text" placeholder="placa do veículo">
+                <a class="btn btn-primary col-2" href="#" role="button"><i class="texto-pesquisa fa fa-search" aria-hidden="true"></i></a>
+            </form>
+        </div>
+    </div>
+</div>
+    
+<div class=" zoom-veiculo cobrir-tela mt-5">
+
+    <div class="row justify-content-center">
+        <div class="col-12">
+            
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Placa</th>
+                            <th>Chassi</th>
+                            <th>Renavan</th>
+                            <th>compra</th>
+                            <th>venda</th>
+                            <th>quilômetragem</th>
+                            <th>Situação</th>
+                            <th>Modelo</th>
+                            <th>Imagem</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            {% for veiculo in veiculos %}
+
+                                <tr class="clicavel">
+                                    <!--placa-->
+                                    <td scope="row">
+                                        <input
+                                        class="{{veiculo.veiculo_id}} desabilitado form-text" 
+                                        type="text" 
+                                        name="placa"
+                                        size="7"
+                                        disabled 
+                                        value="{{veiculo.placa}}">
+                                    </td>
+                                    <!--chassi-->
+                                    <td scope="row">
+                                        <input 
+                                        class="{{veiculo.veiculo_id}} desabilitado form-text" 
+                                        type="text" 
+                                        name="chassi"
+                                        size="14"
+                                        disabled 
+                                        value="{{veiculo.chassi}}">
+                                    </td>
+
+                                    <!--renavan-->
+                                    <td scope="row">
+                                        <input
+                                        class="{{veiculo.veiculo_id}} desabilitado form-text " 
+                                        type="text" 
+                                        size="14"
+                                        name="renavan"
+                                        disabled 
+                                        value="{{veiculo.renavan}}">
+                                    </td>
+
+                                    <!--preço da compra-->
+                                    <td>
+                                        <input   
+                                        class="{{veiculo.veiculo_id}} desabilitado form-text input-n-veiculo" 
+                                        type="number"
+                                        step="0.01"
+                                        disabled
+                                        name="preco_compra"
+                                        value="{{veiculo.preco_compra}}">
+                                    </td>
+
+                                    <!--preço da venda-->
+                                    <td>
+                                        <input   
+                                        class="{{veiculo.veiculo_id}} desabilitado form-text input-n-veiculo" 
+                                        type="number"
+                                        step="0.01"
+                                        disabled
+                                        name="preco_venda"
+                                        value="{{veiculo.preco_venda}}">
+                                    </td>
+
+                                    <!--quilometragem-->
+                                    <td>
+                                        <input   
+                                        class="{{veiculo.veiculo_id}} desabilitado form-text input-n-veiculo" 
+                                        type="number"
+                                        disabled
+                                        name="quilometragem"
+                                        value="{{veiculo.quilometragem}}">
+                                    </td>
+
+                                    <!--situação-->
+                                    <td>
+                                        <fieldset>
+                                            <select disabled id="select-sitacao" class="{{veiculo.veiculo_id}} input-select desabilitado custom-select col-8" name="situacao">
+                                                <option disabled alue="0">modelo</option>
+                                            
+                                                <option
+                                                
+                                                {% if veiculo.situacao == "disponivel" %}
+                                                    selected="selected" 
+                                                {% endif %}
+
+                                                value="disponivel">disponivel</option>
+                                            
+                                                <option
+                                                
+                                                {% if veiculo.situacao == "indisponivel" %}
+                                                    selected="selected" 
+                                                {% endif %}
+                                                value="indisponivel">indisponivel</option>
+
+                                                <option 
+                                                
+                                                {% if veiculo.situacao == "vendido" %}
+                                                    selected="selected" 
+                                                {% endif %}
+                                                value="vendido">vendido</option>
+                                            </select>
+                                        </fieldset>
+                                    </td>
+
+                                    <!--modelo-->
+                                    <td>
+                                        <fieldset>
+                                            <select disabled id="select-combustivel" class="{{veiculo.veiculo_id}} input-select desabilitado custom-select col-8" name="modelo_id" id="anos">
+                                                    <option disabled alue="0">marcas</option>
+                                                    {% for modelo in modelos %}
+                                                        <option
+                                                            {% if modelo.modelo_id == veiculo.modelo_id %}
+                                                                selected="selected" 
+                                                            {% endif %}
+                                                            
+                                                            value="{{modelo.modelo_id}}">
+                                                            {{modelo.nome}}
+                                                        </option>
+                                                    {% endfor %}
+                                            </select>
+                                        </fieldset>
+                                    </td>
+                                    <!--alterar imagem-->
+                                    <td>
+                                        <a 
+                                            id="alterar-imagem" 
+                                            class="btn btn-primary"  
+                                            href="http://localhost/blockbuster/?pagina=veiculo&metodo=alterarImagem&id={{veiculo.veiculo_id}}&imagem={{veiculo.imagem_id}}" 
+                                            role="button">
+                                                imagem
+                                        </a>
+                                    </td>
+                                    
+                                    
+                                    <!--botoes de deletar/alterar/ salvar alteração-->
+                                    <td>
+                                        <a 
+                                        name="deletar" 
+                                        id="deletar-modelo" 
+                                        class="btn btn-danger"  
+                                        href="http://localhost/blockbuster/?pagina=modelo&metodo=deletarVeiculo&id={{veiculo.veiculo_id}}" 
+                                        role="button">
+                                            <i class="fa fa-trash"></i>
+                                        </a>
+                                    </td>
+
+                                    <td>
+                                        <input
+                                        type="submit" 
+                                        name="alterar-modelo"
+                                        id="{{veiculo.veiculo_id}}"  
+                                        class="alterar btn btn-sm btn-primary" 
+                                        onclick="return habilitarEdicao({{veiculo.veiculo_id}});"
+                                        role="button"
+                                        value="alterar">
+
+                                        <input
+                                        type="submit"
+                                        name="alterar-modelo"
+                                        class="alterar escondido btn btn-sm btn-success"
+                                        id="btn-salvar-{{veiculo.veiculo_id}}"
+                                        onclick="return habilitarSubmissaoVeiculo({{veiculo.veiculo_id}},{{veiculo.modelo_id}})"
+                                        role="button"
+                                        value="salvar">
+                                    </td>            
+                                </tr>
+
+                            {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+    </div>
+
+</div>
+    

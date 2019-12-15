@@ -47,6 +47,10 @@ tr.clicavel:hover {
     width: 80px;
 }
 
+.input-n-veiculo {
+    width: 120px;
+}
+
 .input-select {
     width: 200px;
 }
@@ -63,4 +67,10 @@ tr.clicavel:hover {
 
 .zoom {
     zoom: .85;
+}
+.zoom-veiculo {
+    zoom: .75;
+}
+.erro {
+    border: 2px solid red;
 }

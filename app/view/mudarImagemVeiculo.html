@@ -1,0 +1,71 @@
+{% for arquivo in arquivos %}
+<div class="card shadow-lg border-0 text-left d-flex">
+  <div class="card-body">
+    <div class="container ">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h4 class="card-title "> 
+                    {% for modelo in modelos %}
+                        {{modelo.nome}}
+                    {% endfor %}
+                </h4>
+            </div>
+
+            <div class="col-12 text-center mb-3">
+                <p class="card-text">
+                    {% for veiculo in veiculos %}
+                            {{veiculo.placa}}
+                    {% endfor %}
+                </p>
+            </div>
+            
+            <div class="col-12 text-center">
+                <img id="blah" width="200px" src="imagens/carro/{{arquivo.arquivo}}" alt="">
+            </div>
+
+
+            <div class="col-12">
+                <div class="row justify-content-between align-baseline mt-4 pb-4">
+                    <div class="col-3">
+                        <!-- botão cancelar-->
+                        <div class="row justify-content-center">
+                            <a name="" id="" class="col-10 btn btn-danger" href="http://localhost/blockbuster/?pagina=veiculo" role="button">cancelar</a>
+                        </div>
+                    </div>
+                    <!-- botão alterar-->
+                    <div class="col-8">
+                        <form class="form-control border-0" action="?pagina=veiculo&metodo=salvarImagem" method="post" enctype="multipart/form-data">
+                            <div class="container">
+                                <div class="row align-content-between">
+                                    <!-- id do veiculo para mudar imagem-->
+                                    <input type="text"
+                                    name="veiculo_id"
+                                    hidden 
+                                    {% for veiculo in veiculos %}
+                                        value="{{veiculo.veiculo_id}}"
+                                    {% endfor %}>
+
+                                    <div class="col-8">
+                                        <input id="" class="form-control border-success" onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0])" type="file" required name="arquivo">
+                                    </div>
+
+                                    <div class="col-4">
+                                        <input class="btn btn-success" type="submit" value="salvar">
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+  </div>
+</div>
+   
+{% endfor %}

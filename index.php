@@ -14,6 +14,10 @@ require_once 'app/controller/modeloController.php';
 require_once 'app/model/modelo.php';
 require_once 'app/controller/marcaController.php';
 require_once 'app/model/marca.php';
+require_once 'app/controller/imagemController.php';
+require_once 'app/model/imagem.php';
+require_once 'app/controller/veiculoController.php';
+require_once 'app/model/veiculo.php';
 
 $template = file_get_contents('app\template\estrutura.html');
 
