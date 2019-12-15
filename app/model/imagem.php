@@ -5,11 +5,11 @@ class Imagem {
 
     static function cadastrarImagem() {
 
+        var_dump($_FILES);
         /*pegar a conexão com o banco de dados para interagir com o banco*/
         $con = Connection::getConn();
           
         //testar se existem categorias cadastradas com o mesmo nome    
-
         if(isset($_FILES['arquivo'])){
 
             //pegar extensão do arquivo
@@ -33,7 +33,8 @@ class Imagem {
             $ultimoId = $con->lastInsertId();
 
             return $ultimoId;
-        }
+        } 
+        return 401;
     }
 
     public static function retornarNome($id) {

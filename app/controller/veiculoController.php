@@ -124,11 +124,59 @@
             VeiculoController::index();
         }
 
-        //cadastrar veiculo
+        //carregar pagina para cadastrar veiculo
         public function cadastrarVeiculo(){
-            
+            try {
+                $modelos = Modelo::selecionaTodos();
+                /*
+                    twig é uma api que permite mostrar conteudos na view sem a necessidade de escrever
+                    codigo php no html da view, assim o codigo não fica misturado.
+                    sintaxe:
+                        naview: {{conteudo}}
+                        na controller: array[conteudo] = nome
+
+                        o valores na view dentro de {{}} sao substituidos pela valor da chave no array
+
+                */
+
+                //carregar a view cadastrareiculo na tela
+                $loader = new \Twig\Loader\FilesystemLoader('app/view');
+                $twig = new \Twig\Environment($loader);
+                $template = $twig->load('cadastrarVeiculo.html');
+
+                //carregar modelos para o select
+                $parametros = array();
+                $parametros['modelos'] = $modelos;
+                $conteudo = $template->render($parametros);
+
+                echo $conteudo;
+
+            } catch (PDOException $e) {
+                echo $e->getMessage();
+            }
         }
 
+        //realizar o cadastro]
+        public function realizarCadastro () {
+
+            $idImagem = Imagem::cadastrarImagem($_FILES);
+            $_POST['imagem'] = $idImagem;
+            
+            $resultado = Veiculo::cadastrarVeiculo($_POST);
+
+            var_dump($resultado);
+            VeiculoController::index();
+        }
+
+        public function deletarVeiculo($id) 
+        {
+            //chamar a model para deletar
+            $successoDeletar = Veiculo::deletar($id);
+
+            //retornar a pagina inicial de veiculo
+
+            VeiculoController::index();
+        }
     }
 
 ?>

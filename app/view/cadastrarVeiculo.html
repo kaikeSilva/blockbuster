@@ -1,1 +1,175 @@
-pagina de cadastro de veiculo
+
+<div  class=" largura-total mt-4 shadow-lg" >
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-7">
+                <h1 class="font-weight-light pl-4 pt-4">Dados do Veiculo</h1>
+            </div>
+
+            <div class="pt-3 col-4 ">
+                <small class="mr-0">*campos obrigatórios</small>
+            </div>
+        </div>
+    </div> 
+    
+    <form class=" border-0" onsubmit="return validarDadosVeiculo()" action="?pagina=veiculo&metodo=realizarCadastro" method="post" enctype="multipart/form-data">
+    
+        <div class="row p-4 justify-content-around">
+
+            <div class="col-5 ">
+                                    
+                <!--placa-->
+                <label for="placa">Placa * </label>
+                <input
+                size="20"  
+                class="veiculo form-control" 
+                type="text" 
+                name="placa">
+
+            </div>
+
+            <div class="col-2 ">
+                                    
+                <!--renavan-->
+                <label for="renavan">Renavan * </label>
+                <input 
+                class="veiculo form-control" 
+                type="text" 
+                name="renavan">
+            </div>
+
+            <div class="col-2 ">
+                                    
+                <!--preço de compra-->
+                <label for="preco_compra">Preço de compra * </label>
+                <input 
+                class="veiculo form-control" 
+                type="number" 
+                step="0.01"
+                name="preco_compra">
+            </div>
+
+            <div class="col-2 ">
+                
+                <!--preço de venda-->
+                <label for="preco_venda">Preço de venda * </label>
+                <input 
+                class="veiculo form-control" 
+                type="number" 
+                step="0.01"
+                name="preco_venda">
+            </div>
+
+        </div>
+
+        <div class="row p-4 justify-content-around">
+            
+            <div class="col-3">
+                <!--chassi-->
+                <label for="chassi">Chassi * </label>
+                <input
+                size="20"  
+                class="veiculo form-control" 
+                type="text" 
+                name="chassi">
+            </div>
+
+            <!--modelo-->
+            
+            <div class="col-4">
+                <label for="modelo">Modelo * </label><br>
+                <select id="" class="veiculo custom-select col-8" name="modelo">
+                        <option disabled alue="0">marcas</option>
+                        {% for modelo in modelos %}
+                            <option
+                                id=""
+                                name=""
+                                value="{{modelo.modelo_id}}">
+                                {{modelo.nome}}
+                            </option>
+                        {% endfor %}
+                </select>
+            </div>
+                
+            <!--situação-->
+            <div class="col-3 ">
+                <label for="situacao">Situação * </label><br>                     
+                <fieldset>
+                    <select  id="" class="veiculo custom-select col-8" name="situacao">
+                                           
+                        <option
+                            selected="selected" 
+                            value="disponivel">
+                                disponivel
+                        </option>
+
+                        <option
+                            value="indisponivel">
+                                indisponivel
+                        </option>
+
+                        <option
+                            value="vendido">
+                                vendido
+                        </option>
+                    </select>
+                </fieldset>
+
+            </div>
+            
+            <!-- quilometragem-->
+            <div class="col-2 ">
+
+                <label for="quilometragem">Quilometragem * </label>
+                <input 
+                class="veiculo form-control" 
+                type="number"  
+                name="quilometragem">
+            </div>
+
+        </div>
+
+        <div class="row p-4 justify-content-around">
+
+            <!-- imagem -->
+            
+            <div class="col-5">
+                <label for="imagem">imagem * </label><br>
+                <input 
+                    class="form-control" 
+                    type="file" 
+                    required 
+                    name="arquivo"
+                    onchange="
+                    document.getElementById('img-veiculo').src = window.URL.createObjectURL(this.files[0])
+                    ">
+            </div>
+
+            <div class="col-4 shadow-lg text-center p-5">
+                <img id="img-veiculo"  height="300px" src="" >
+            </div>
+
+        </div>
+
+        
+
+        
+        <div class="row justify-content-around mt-4 pb-4">
+            <div class="col-4">
+                <!-- botão cancelar-->
+                <div class="row justify-content-center">
+                    <a name="" id="" class="col-10 btn btn-danger" href="http://localhost/blockbuster/?pagina=veiculo" role="button">cancelar</a>
+                </div>
+            </div>
+            <!-- botão cadastrar-->
+            <div class="col-4">
+                <div class="row justify-content-center">
+                    <input type="submit" onclick=""  value="cadastrar" class=" btn btn-success col-10">
+                </div>
+            </div>
+        </div>
+    
+    </form>
+
+</div>

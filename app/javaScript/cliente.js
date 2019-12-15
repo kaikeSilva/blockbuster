@@ -424,3 +424,18 @@ function verificarVazioVeiculo (item) {
         return 0
     }
 }
+
+function validarDadosVeiculo () {
+    var inputs = document.getElementsByClassName('veiculo')
+    var vazios = 0
+    for (let index = 0; index < inputs.length; index++) {
+        vazios += verificarVazioVeiculo(inputs[index]);
+    }
+    console.log(vazios)
+    if (vazios>0) {
+        alert('preencha todos os campos marcados em vermelho')
+        return false
+    }
+    return true
+    
+}

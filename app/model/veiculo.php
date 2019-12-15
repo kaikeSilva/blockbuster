@@ -117,6 +117,64 @@ class Veiculo {
             return $resultado;
     }
 
+    static function cadastrarVeiculo($veiculo) {
+        var_dump($veiculo);
+        /*pegar a conexão com o banco de dados para interagir com o banco*/
+        $con = Connection::getConn();
+        try 
+        {
+            //futura implementação de restrição ao inserir veiculo
+            if(true){
+
+                //inserir o veiculo
+                $sql = "INSERT INTO  veiculo
+                ( modelo_id, placa, chassi, 
+                renavan, preco_compra, preco_venda, quilometragem, situacao, imagem_id)
+                VALUES ( :modelo, :placa, :chassi,
+                :renavan, :preco_compra, :preco_venda, :quilometragem, :situacao, :imagem)
+                ";
+
+                $sql = $con->prepare($sql);
+                $sql->bindValue(':modelo', $veiculo['modelo'], PDO::PARAM_STR);
+                $sql->bindValue(':placa', $veiculo['placa'], PDO::PARAM_STR);
+                $sql->bindValue(':renavan', $veiculo['renavan'], PDO::PARAM_STR);
+                $sql->bindValue(':chassi', $veiculo['chassi'], PDO::PARAM_STR);
+                $sql->bindValue(':preco_compra', $veiculo['preco_compra'], PDO::PARAM_STR);
+                $sql->bindValue(':preco_venda', $veiculo['preco_venda'], PDO::PARAM_STR);
+                $sql->bindValue(':quilometragem', $veiculo['quilometragem'], PDO::PARAM_STR);
+                $sql->bindValue(':situacao', $veiculo['situacao'], PDO::PARAM_STR);
+                $sql->bindValue(':imagem', $veiculo['imagem'], PDO::PARAM_STR);
+                
+                $resultado = $sql->execute();
+                return $resultado;
+
+            } else {
+                throw new Exception("valor repitido");
+            }
+            
+        } catch (PDOException $th) {
+            return $resultado;
+            echo($th);
+        }
+
+        return $resultado;
+    }
+    static function deletar($id) {
+            
+        $con = Connection::getConn();
+
+        //deletar categoria
+        $sql = "DELETE FROM  veiculo
+        WHERE veiculo.veiculo_id = :id";
+
+        $sql = $con->prepare($sql);
+        $sql->bindValue(':id',$id , PDO::PARAM_STR);
+        
+        $resultado = $sql->execute();
+
+        return true;
+    }
+
 
 
 }
