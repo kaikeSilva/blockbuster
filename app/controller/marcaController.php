@@ -112,7 +112,6 @@
             try {
                 //enviar dados para o banco
                 $cadastro = Marca::cadastrarMarca($marca);
-                var_dump($cadastro);
                 if ($cadastro) {
                     $urlMarca = array();
                     $pagina = 'marca';

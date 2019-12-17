@@ -5,7 +5,6 @@ class Imagem {
 
     static function cadastrarImagem() {
 
-        var_dump($_FILES);
         /*pegar a conexão com o banco de dados para interagir com o banco*/
         $con = Connection::getConn();
           

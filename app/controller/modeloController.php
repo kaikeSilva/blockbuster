@@ -47,6 +47,7 @@
                 $loader = new \Twig\Loader\FilesystemLoader('app/view');
                 $twig = new \Twig\Environment($loader);
                 $template = $twig->load('modelo.html');
+                $conteudo = $template->render();
 
                 echo $conteudo;
             } 
@@ -98,7 +99,6 @@
             try {
                 $marcas = Marca::selecionaTodos();
                 $categorias = Categoria::selecionaTodos();
-                
 
                 /*
                     twig é uma api que permite mostrar conteudos na view sem a necessidade de escrever

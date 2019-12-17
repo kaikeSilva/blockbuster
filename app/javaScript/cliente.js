@@ -156,6 +156,7 @@ function percorrerVerificarVazio (campos) {
 }
 
 function verificarTamanho(item,tamanho){
+    console.log(item)
     if(item.value.length != tamanho && item.disabled == false){
         item.classList.add('erro')
         throw "campo "+item.id+" deve ter "+tamanho+" digitos"
@@ -428,8 +429,29 @@ function verificarVazioVeiculo (item) {
 function validarDadosVeiculo () {
     var inputs = document.getElementsByClassName('veiculo')
     var vazios = 0
+    var key
     for (let index = 0; index < inputs.length; index++) {
         vazios += verificarVazioVeiculo(inputs[index]);
+        try {
+            key = inputs[index].id
+            console.log(key)
+            switch (key) {
+                case 'placa':
+                    verificarTamanho(inputs[index],7)
+                    break;
+                case 'renavan':
+                    verificarTamanho(inputs[index],11)
+                    break;
+                case 'chassi':
+                    verificarTamanho(inputs[index],17)
+                    break;
+                default:
+                    break;
+            }
+        } catch (error) {
+            alert(error)
+            return false
+        }
     }
     console.log(vazios)
     if (vazios>0) {
@@ -438,4 +460,150 @@ function validarDadosVeiculo () {
     }
     return true
     
+}
+
+//home controller
+function mostrarLista() {
+    var form = document.createElement("form");
+
+    form.setAttribute("type", "hidden");
+
+    form.method = "POST";
+    form.action = "?pagina=locacao";
+
+    //pegar o select
+    selectCategoria = document.getElementById('categoria')
+    
+
+    //id da categoria selecionnada
+    var elementoId = document.createElement("input");
+    elementoId.value = selectCategoria[selectCategoria.selectedIndex].value;
+    elementoId.name = 'categoria_id';
+    elementoId.setAttribute("type","hidden")
+    form.appendChild(elementoId)
+    console.log(elementoId)
+
+
+
+    document.body.appendChild(form);
+    form.submit()
+}
+
+//locaçção
+
+function retirarHidden() {
+    var select = document.getElementById('categoria')
+    var itens = document.getElementsByClassName('item-locacao')
+
+    for (let index = 0; index < itens.length; index++) {
+        if (itens[index].classList.contains(select[select.selectedIndex].value)) {
+            itens[index].classList.remove('hidden-item')
+            console.log('dentro do if')
+            console.log(itens[index])
+        } else {
+            itens[index].classList.add('hidden-item')
+            console.log('dentro do else')
+            console.log(itens[index])
+        }  
+    }
+
+
+}
+
+function submeterVeiculo (id) {
+    var form = document.createElement("form");
+
+    form.setAttribute("type", "hidden");
+
+    form.method = "POST";
+    form.action = "?pagina=locacao&metodo=cliente";
+
+
+    //id do veiculo
+    var elementoId = document.createElement("input");
+    elementoId.value = id;
+    elementoId.name = "veiculo_id";
+    elementoId.style.display = 'none';
+    form.appendChild(elementoId)
+
+
+
+    document.body.appendChild(form);
+    form.submit()
+}
+
+function submeterCliente (idCliente, idVeiculo) {
+    var form = document.createElement("form");
+    console.log(idCliente)
+    console.log(idVeiculo)
+
+    form.setAttribute("type", "hidden");
+
+    form.method = "POST";
+    form.action = "?pagina=locacao&metodo=motorista";
+
+
+    //id do veiculo
+    var veiculo = document.createElement("input");
+    veiculo.value = idVeiculo;
+    veiculo.name = "veiculo_id";
+    veiculo.style.display = 'none';
+    form.appendChild(veiculo)
+
+    //id do cliente
+    var cliente = document.createElement("input");
+    cliente.value = idCliente;
+    cliente.name = "cliente_id";
+    cliente.style.display = 'none';
+    form.appendChild(cliente)
+
+
+
+    document.body.appendChild(form);
+    form.submit()
+}
+
+function submeterMotorista (idCliente, idVeiculo, idMotorista) {
+    var form = document.createElement("form");
+    console.log(idCliente)
+    console.log(idVeiculo)
+
+    form.setAttribute("type", "hidden");
+
+    form.method = "POST";
+    form.action = "?pagina=locacao&metodo=dados";
+
+
+    //id do veiculo
+    var veiculo = document.createElement("input");
+    veiculo.value = idVeiculo;
+    veiculo.name = "veiculo_id";
+    veiculo.style.display = 'none';
+    form.appendChild(veiculo)
+
+    //id do cliente
+    var cliente = document.createElement("input");
+    cliente.value = idCliente;
+    cliente.name = "cliente_id";
+    cliente.style.display = 'none';
+    form.appendChild(cliente)
+
+    //id do motorista
+    var motorista = document.createElement("input");
+    motorista.value = idMotorista;
+    motorista.name = "motorista_id";
+    motorista.style.display = 'none';
+    form.appendChild(motorista)
+
+
+
+    document.body.appendChild(form);
+    form.submit()
+}
+
+function setarData () {
+    console.log('dentro de data')
+    if (document.getElementById('data-inicial')){
+        document.getElementById('data-inicial').value = new Date().toDateInputValue();
+    }
 }

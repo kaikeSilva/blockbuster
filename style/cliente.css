@@ -74,3 +74,11 @@ tr.clicavel:hover {
 .erro {
     border: 2px solid red;
 }
+
+/*
+    esconder itens de locação de veiculos
+*/
+
+.hidden-item {
+    display: none;
+} 

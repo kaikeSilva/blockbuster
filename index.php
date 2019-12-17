@@ -18,6 +18,8 @@ require_once 'app/controller/imagemController.php';
 require_once 'app/model/imagem.php';
 require_once 'app/controller/veiculoController.php';
 require_once 'app/model/veiculo.php';
+require_once 'app/controller/locacaoController.php';
+require_once 'app/model/locacao.php';
 
 $template = file_get_contents('app\template\estrutura.html');
 

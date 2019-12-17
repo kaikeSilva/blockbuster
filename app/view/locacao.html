@@ -1,0 +1,75 @@
+
+<div id="" class="col-12 p-3 shadow rounded">
+              
+    <form action="?pagina=locacao&metodo=index" method="post">
+        <fieldset>
+            <label for="categoria"  class="d-block">Categoria</label>
+            <select id="categoria" onchange="retirarHidden()" class="custom-select" name="categoria" >
+                <option disabled selected value="0">Escolha uma categoria</option>    
+                {% for categoria in categorias %}
+                        <option
+                        value="{{categoria.categoria_id}}"
+                        {% if categoria.categoria_id == selecionada.categoria_id %}
+                            selected = "selected"
+                        {% endif %}
+                        >
+                        {{categoria.nome}}
+                        </option>
+                   
+                {% endfor %}
+            </select>
+        </fieldset>
+    </form>
+
+    <div class="container">
+        <div class="row ">
+
+            {% for item in itens %}
+            {% if item.situacao == "disponivel" %}
+            <div class="col-6 
+                        {% if item.categoria_id != selecionada.categoria_id %}
+                            hidden-item
+                        {% endif %}
+                        {{item.categoria_id}} 
+                        item-locacao mt-5 justify-content-around border rounded p-3">
+
+                    <div
+                        class="col-12">
+                        <!--imagem-->
+                        <div class="row">
+                            <div class="col-6">
+                                <img class="" width="200px" src="imagens/carro/{{item.arquivo}}"  alt="">
+                            </div>
+
+                            <div class="col-6">
+                                <!--descrição-->
+                                <div class="text-left col-6 d-inline">
+                                    <p class="h4 text-info">{{item.nome}}</p>
+                                    <p class="text-uppercase text-black-50" >{{item.placa}}</p>
+                                    {% for categoria in categorias %}
+                                        {% if categoria.categoria_id == item.categoria_id %}
+                                            <p class="font-weight-bold">R&#36; {{categoria.valor}}</p>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <!--botao locar-->
+                    <div class="col-12 container mt-3">
+                        <div class="row justify-content-end mr-5">
+                            <a onclick="submeterVeiculo({{item.veiculo_id}})" class="{{item.veiculo_id}} text-light btn btn-success">locar</a>
+                        </div>
+                    </div>
+
+            
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    
+</div>

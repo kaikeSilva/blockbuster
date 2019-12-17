@@ -102,7 +102,11 @@ class Veiculo {
                 $sql->bindValue(':chassi', $dados['chassi'], PDO::PARAM_STR);
                 $sql->bindValue(':renavan', $dados['renavan'], PDO::PARAM_STR);
                 $sql->bindValue(':preco_compra', $dados['preco_compra'], PDO::PARAM_STR);
-                $sql->bindValue(':preco_venda', $dados['preco_venda'], PDO::PARAM_STR);
+                if(empty($dados['preco_venda']) ){
+                    $sql->bindValue(':preco_venda', null, PDO::PARAM_STR);
+                } else {
+                    $sql->bindValue(':preco_venda', $dados['preco_venda'], PDO::PARAM_STR);
+                }
                 $sql->bindValue(':quilometragem', $dados['quilometragem'], PDO::PARAM_STR);
                 $sql->bindValue(':situacao', $dados['situacao'], PDO::PARAM_STR);
                 $sql->bindValue(':modelo_id', $dados['modelo_id'], PDO::PARAM_STR);
@@ -118,7 +122,6 @@ class Veiculo {
     }
 
     static function cadastrarVeiculo($veiculo) {
-        var_dump($veiculo);
         /*pegar a conexão com o banco de dados para interagir com o banco*/
         $con = Connection::getConn();
         try 
@@ -140,7 +143,13 @@ class Veiculo {
                 $sql->bindValue(':renavan', $veiculo['renavan'], PDO::PARAM_STR);
                 $sql->bindValue(':chassi', $veiculo['chassi'], PDO::PARAM_STR);
                 $sql->bindValue(':preco_compra', $veiculo['preco_compra'], PDO::PARAM_STR);
-                $sql->bindValue(':preco_venda', $veiculo['preco_venda'], PDO::PARAM_STR);
+
+                if(empty($veiculo['preco_venda']) ){
+                    $sql->bindValue(':preco_venda', null, PDO::PARAM_STR);
+                } else {
+                    $sql->bindValue(':preco_venda', $veiculo['preco_venda'], PDO::PARAM_STR);
+                }
+
                 $sql->bindValue(':quilometragem', $veiculo['quilometragem'], PDO::PARAM_STR);
                 $sql->bindValue(':situacao', $veiculo['situacao'], PDO::PARAM_STR);
                 $sql->bindValue(':imagem', $veiculo['imagem'], PDO::PARAM_STR);
@@ -159,6 +168,7 @@ class Veiculo {
 
         return $resultado;
     }
+
     static function deletar($id) {
             
         $con = Connection::getConn();
@@ -174,9 +184,6 @@ class Veiculo {
 
         return true;
     }
-
-
-
 }
 
 ?>

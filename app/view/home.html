@@ -4,14 +4,11 @@
     <fieldset>
         <label for="categoria"  class="d-block">Categoria</label>
         <select id="categoria" onchange="mostrarLista()" class="custom-select" name="categoria" id="">
-                <option disabled selected value="0">Escolha uma categoria</option>
-                <option value="comida">Econômico</option>
-                <option value="lazer">Intermediário</option>
-                <option value="roupa">SUV</option>
-                <option value="lazer">Executivo</option>
-                <option value="roupa">Utilitário</option>  
+            <option disabled selected value="0">Escolha uma categoria</option>    
+            {% for categoria in categorias %}
+                <option value="{{categoria.categoria_id}}">{{categoria.nome}}</option>
+            {% endfor %}
         </select>
     </fieldset>
-    
 </div>
 

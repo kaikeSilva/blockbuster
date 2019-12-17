@@ -43,7 +43,7 @@
                 echo $e->getMessage();
                 $loader = new \Twig\Loader\FilesystemLoader('app/view');
                 $twig = new \Twig\Environment($loader);
-                $template = $twig->load('modelo.html');
+                $template = $twig->load('veiculo.html');
                 $conteudo = $template->render();
 
                 echo $conteudo;
@@ -128,6 +128,7 @@
         public function cadastrarVeiculo(){
             try {
                 $modelos = Modelo::selecionaTodos();
+                
                 /*
                     twig é uma api que permite mostrar conteudos na view sem a necessidade de escrever
                     codigo php no html da view, assim o codigo não fica misturado.
@@ -164,7 +165,6 @@
             
             $resultado = Veiculo::cadastrarVeiculo($_POST);
 
-            var_dump($resultado);
             VeiculoController::index();
         }
 

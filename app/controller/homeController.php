@@ -10,7 +10,7 @@
                 mostrar dados recebidos ou a menssagem de erro vinda da model.
             */
             try {
-                //solicitação ao banco
+                 $colecaoCategorias = Categoria::selecionaTodos();
 
 
                 /*
@@ -23,12 +23,14 @@
                         o valores na view dentro de {{}} sao substituidos pela valor da chave no array
 
                 */
+                $parametros = array();
+                $parametros['categorias'] = $colecaoCategorias;
                 $loader = new \Twig\Loader\FilesystemLoader('app/view');
                 $twig = new \Twig\Environment($loader);
                 $template = $twig->load('home.html');
 
                 //renderizar o template, parametros de render seriam dados vindos de alguma model
-                echo $template->render();
+                echo $template->render($parametros);
 
             } catch (Exception $e) {
                 echo $e->getMessage();
