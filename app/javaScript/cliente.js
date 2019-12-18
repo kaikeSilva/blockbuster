@@ -607,3 +607,161 @@ function setarData () {
         document.getElementById('data-inicial').value = new Date().toDateInputValue();
     }
 }
+
+//feedback para input de data
+function verificaMes(selecionado,id) {
+
+    //verificar quantos dias tem o mes
+    switch (selecionado) {
+        case '2':
+            setarDias(28,id)
+            break
+        case '4':
+        case '6':
+        case '9':
+        case '11':
+            setarDias(30,id)
+            break
+        default:
+            setarDias(31,id)
+            break
+    }
+
+    //modificar os dias que nao fazem parte do mes para disabled
+    function setarDias(dias,id) {
+        console.log(id)
+        if (id == 'option-mes-inicio') {
+            let selectDias = document.getElementById('option-dia-inicio')
+            let optionDias = selectDias.getElementsByTagName('option')
+            selectDias.disabled = false
+
+            for (let i = 25; i < optionDias.length; i++) {
+                optionDias[i].disabled = false
+                optionDias[i].style.color = '#495057';   
+            }
+
+            for (let i = dias+1; i < optionDias.length; i++) {
+                optionDias[i].disabled =true
+                optionDias[i].style.color = '#d9534f'; //danger cor do bootstrap
+            }
+        } else {
+            let selectDias = document.getElementById('option-dia-fim')
+            let optionDias = selectDias.getElementsByTagName('option')
+            selectDias.disabled = false
+
+            for (let i = 25; i < optionDias.length; i++) {
+                optionDias[i].disabled = false
+                optionDias[i].style.color = '#495057';   
+            }
+
+            for (let i = dias+1; i < optionDias.length; i++) {
+                optionDias[i].disabled =true
+                optionDias[i].style.color = '#d9534f'; //danger cor do bootstrap
+            }
+        }
+        
+    }
+}
+
+//validar campos de data vazios
+function verificarVazioData() {
+    var datas = document.getElementsByClassName('data')
+    var datasVazias = 0
+
+    for (let index = 0; index < datas.length; index++) {
+        if (datas[index].value == 0) {
+            datas[index].classList.add('erro')
+            datasVazias++
+        } else datas[index].classList.remove('erro')
+    }
+
+    if (datasVazias!=0) {
+        alert('preencha todas as datas')
+        //return false
+    }
+    
+    //validar se o dia de devolução é posterior
+    var diaInicio = document.getElementById('option-dia-inicio')[document.getElementById('option-dia-inicio').selectedIndex].value
+    var mesInicio = document.getElementById('option-mes-inicio')[document.getElementById('option-mes-inicio').selectedIndex].value
+    var anoInicio = document.getElementById('option-ano-inicio')[document.getElementById('option-ano-inicio').selectedIndex].value
+
+    var diaFim = document.getElementById('option-dia-fim')[document.getElementById('option-dia-fim').selectedIndex].value
+    var mesFim = document.getElementById('option-mes-fim')[document.getElementById('option-mes-fim').selectedIndex].value
+    var anoFim = document.getElementById('option-ano-fim')[document.getElementById('option-ano-fim').selectedIndex].value
+
+    if(!verificarDataVemDepois(diaInicio,mesInicio,anoInicio,diaFim,mesFim,anoFim)) return false 
+
+    //calcular valores
+    var dataInicial = mesInicio+"/"+diaInicio+"/"+anoInicio
+    var dataFinal = mesFim+"/"+diaFim+"/"+anoFim
+    var date1 = new Date(dataInicial) ;
+    var date2 = new Date(dataFinal); 
+  
+    // To calculate the time difference of two dates 
+    var Difference_In_Time = date2.getTime() - date1.getTime(); 
+    
+    // To calculate the no. of days between two dates 
+    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+    var valorCategoria = document.getElementsByName('valor')[0].value
+    var locacao = Math.floor(Difference_In_Days)* valorCategoria
+    document.getElementById('valor-locacao').innerHTML = locacao
+    gerarelemento('valor_locacao',locacao)
+
+    var seguro = locacao * 0.05 
+    document.getElementById('valor-seguro').innerHTML = seguro
+    gerarelemento('valor_seguro', seguro)
+    
+    var caucao = (locacao + (locacao * 0.05))/2 
+    document.getElementById('valor-caucao').innerHTML = caucao
+    gerarelemento('valor_caucao',caucao)
+
+
+    var total = (locacao * 0.05) + locacao 
+    document.getElementById('valor-total').innerHTML = total
+    gerarelemento('valor_total',total)
+}
+
+function gerarelemento(nome, valor) {
+    var form = document.getElementById('locacao') 
+    console.log(form)
+    var elemento = document.createElement("input");
+    elemento.value = valor;
+    elemento.name = nome;
+    elemento.style.display = 'none';
+    form.appendChild(elemento)
+}
+
+function verificarDataVemDepois (di,mi,ai,df,mf,af) {
+    if (ai > af) {
+        var anoI = document.getElementById('option-ano-fim')
+        console.log(anoI)
+        anoI.classList.add('erro')
+        var anoF = document.getElementById('option-ano-inicio')
+        anoF.classList.add('erro')
+        alert('A data de entrega deve ser posterior a data de locação!')
+        return false
+    } else {
+        document.getElementById('option-ano-fim').classList.remove('erro')
+        document.getElementById('option-ano-inicio').classList.remove('erro')
+
+        if(mi>mf && ai==af) {
+            document.getElementById('option-mes-fim').classList.add('erro')
+            document.getElementById('option-mes-inicio').classList.add('erro')
+            alert('A data de entrega deve ser posterior a data de locação!')
+            return false
+        } else {
+            document.getElementById('option-mes-fim').classList.remove('erro')
+            document.getElementById('option-mes-inicio').classList.remove('erro')
+
+            if (di >= df && mi == mf && ai == af) {
+                document.getElementById('option-dia-fim').classList.add('erro')
+                document.getElementById('option-dia-inicio').classList.add('erro')
+                alert('A data de entrega deve ser posterior a data de locação!')
+                return false
+            }
+        }
+    }
+
+    return true
+}

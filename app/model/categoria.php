@@ -161,6 +161,28 @@
 
             return $resultado;
         }
+
+        public static function retornaCategoria($id) {
+            $con = Connection::getConn();
+
+            $sql = "SELECT * FROM categoria
+            where categoria.categoria_id = :id";
+            $sql = $con->prepare($sql);
+            $sql->bindValue(':id', $id, PDO::PARAM_STR);
+            $sql->execute();
+
+            /*
+                apos executar a query armazenar as linhas vindas do banco
+                em um array, se o array estiver vazio sinalizar isso para a controller.
+            */
+            $resultado = array();
+
+            while($row = $sql->fetchObject('Categoria')) {
+                $resultado[] = $row;
+            }
+
+            return $resultado;
+        }
     }
 
 ?>

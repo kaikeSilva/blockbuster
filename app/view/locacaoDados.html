@@ -1,13 +1,183 @@
-<div onload="setarData()" class="form-group row">
-    <label for="example-date-input" class="col-3 col-form-label">Data retirada</label>
-    <div class="col-9">
-      <input class="form-control" type="date" id=data-inicial">
+<div class="container">
+    <div class="row justify-content-center">
+        <p class="display-4">Dados da locação</p>
     </div>
 </div>
-
-<div onload="setarData()" class="form-group row ">
-    <label for="example-date-input" class="col-3 col-form-label">Data devolução: </label>
-    <div class="col-9">
-      <input class="form-control" type="date" id="data-inicial">
-    </div>
+<div class="container shadow p-4">
+    <form id="locacao" onsubmit="false" action="" method="post">
+    
+        <div onload="" class="form-group row">
+            <label for="example-date-input" class="col-3 col-form-label">Data retirada: </label>
+                <!-- ano -->    
+                <div class="col-3">
+                
+                    <select id="option-ano-inicio" required class="data custom-select" name="ano_inicio">
+                        <option disabled selected value="0">ano</option>
+                        <option value="2019">2019</option>
+                        <option value="2020">2020</option>
+                        <option value="2021">2021</option>
+                    </select>
+                </div>    
+                
+                <!-- meses -->
+                <div class="col-3">
+                    <select id="option-mes-inicio" onchange="verificaMes(this.options[this.selectedIndex].value,this.id)" class="data custom-select" name="mes_inicio">
+                            <option disabled selected value="0">mês</option>
+                            <option value="01">janeiro</option>
+                            <option value="02">fevereiro</option>
+                            <option value="03">março</option>
+                            <option value="04">abril</option>
+                            <option value="05">maio</option>
+                            <option value="06">junho</option>
+                            <option value="07">julho</option>
+                            <option value="08">agosto</option>
+                            <option value="09">setembro</option>
+                            <option value="10">outubro</option>
+                            <option value="11">novembro</option>
+                            <option value="12">dezembro</option>
+                    </select>
+                </div>
+    
+                 <!-- dias -->
+                 <div class="col-3">
+                    <select id="option-dia-inicio" disabled class="data custom-select" name="dia_inicio">
+                        <option disabled selected value="0">dia</option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">05</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                        <option value="16">16</option>
+                        <option value="17">17</option>
+                        <option value="18">18</option>
+                        <option value="19">19</option>
+                        <option value="20">20</option>
+                        <option value="21">21</option>
+                        <option value="22">22</option>
+                        <option value="23">23</option>
+                        <option value="24">24</option>
+                        <option value="25">25</option>
+                        <option value="26">26</option>
+                        <option value="27">27</option>
+                        <option value="28">28</option>
+                        <option value="29">29</option>
+                        <option value="30">30</option>
+                        <option value="31">31</option>
+                    </select>
+                </div>
+    
+        </div>
+        
+        <div onload="" class="form-group row ">
+            <label for="example-date-input" class="col-3 col-form-label">Data devolução: </label>
+            <!-- ano -->    
+            <div class="col-3">
+                
+                <select id="option-ano-fim" required class="data custom-select" name="ano_fim">
+                    <option disabled selected value="0">ano</option>
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                </select>
+            </div>    
+            
+            <!-- meses -->
+            <div class="col-3">
+                <select id="option-mes-fim" onchange="verificaMes(this.options[this.selectedIndex].value,this.id)" class="data custom-select" name="meses_fim">
+                        <option disabled selected value="0">mês</option>
+                        <option value="01">janeiro</option>
+                        <option value="02">fevereiro</option>
+                        <option value="03">março</option>
+                        <option value="04">abril</option>
+                        <option value="05">maio</option>
+                        <option value="06">junho</option>
+                        <option value="07">julho</option>
+                        <option value="08">agosto</option>
+                        <option value="09">setembro</option>
+                        <option value="10">outubro</option>
+                        <option value="11">novembro</option>
+                        <option value="12">dezembro</option>
+                </select>
+            </div>
+    
+             <!-- dias -->
+             <div class="col-3">
+                <select id="option-dia-fim" disabled class="data custom-select" name="dia_fim">
+                    <option disabled selected value="0">dia</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">05</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                </select>
+            </div>
+        </div>
+    
+        <div class="row justify-content-center mt-5 mb-5">
+                <a onclick="verificarVazioData()" name="" id="" class=" btn btn-lg btn-primary text-light" role="button">calcular</a>
+        </div>
+    
+        <div class="row">
+            <div class="col-12">
+                <p class="h4 mt-3">Valor da locação: <span id="valor-locacao"></span></p>
+                <p class="h4 mt-3">Valor do caução: <span id="valor-caucao"></span></p>
+                <p class="h4 mt-3">Valor do seguro: <span id="valor-seguro"></span></p>
+                <p class="h3 mt-3 text-info">Valor total: <span id="valor-total"></span></p>
+                
+            </div>
+        </div>
+    
+    
+        {% for categoria in categorias %}
+            <!--valor da categoria-->
+            <input hidden  type="number" step="0.01" name="valor" value="{{categoria.valor}}">
+        {% endfor %}
+        <!--id veiculo-->
+        <input hidden type="number" name="veiculo_id" value="{{veiculo_id}}">
+        <!--id cliente-->
+        <input hidden type="number" name="cliente_id" value="{{cliente_id}}">
+        <!--id motorista-->
+        <input hidden type="number" name="motorista_id" value="{{motorista_id}}">
+    
+        <div class="row justify-content-end">
+            <input type="submit" class="btn-lg btn-success mr-5" value="finalizar">
+        </div>
+    </form>
+    
 </div>

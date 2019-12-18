@@ -140,12 +140,12 @@
 
         public function dados(){
             //carregar paginas com os clientes
-            var_dump($_POST);
             try {
                 //solicitação ao banco os dados dos motoristas
                 //por enquanto esta sendo buscado dos clientes
-                $clientes = Cliente::selecionaTodos();
-
+                $veiculo = Veiculo::retornarVeiculo($_POST['veiculo_id']);
+                $modelo = Modelo::retornarModelo($veiculo[0]->modelo_id);
+                $categoria = Categoria::retornaCategoria($modelo[0]->categoria_id);
 
                 /*
                     twig é uma api que permite mostrar conteudos na view sem a necessidade de escrever
@@ -158,11 +158,11 @@
 
                 */
                 $parametros = array();
-                $parametros['clientes'] = $clientes;
-
+                $parametros['motorista_id'] = $_POST['motorista_id'];
                 $parametros['veiculo_id'] = $_POST['veiculo_id'];
                 $parametros['cliente_id'] = $_POST['cliente_id'];
-
+                $parametros['categorias'] = $categoria;
+                var_dump($parametros);
                 $loader = new \Twig\Loader\FilesystemLoader('app/view');
                 $twig = new \Twig\Environment($loader);
                 $template = $twig->load('locacaoDados.html');
