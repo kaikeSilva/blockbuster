@@ -1,0 +1,282 @@
+
+
+<div  class="container mt-4 shadow-lg" >
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-7">
+                <h1 class="font-weight-light pl-4 pt-4">dados pessoais</h1>
+            </div>
+
+            <div class="pt-3 col-4 ">
+                <small class="mr-0">*campos obrigatórios</small>
+            </div>
+        </div>
+    </div>
+    
+    <form class=" border-0" onsubmit="return validarDadosMotorista()" action="?pagina=motorista&metodo=realizarCadastro" method="post" enctype="multipart/form-data">
+    
+        <div class="row p-4">
+            <div class="col-10">
+                <!--nome-->
+                <label for="nome">Nome * </label>
+                <input 
+                    class="form-control inputs " 
+                    type="text" 
+                    name="nome" 
+                    placeholder="" 
+                    id="nome"
+                    required>
+            </div>
+            <!--cpf ou cnpj-->
+            <div class="col-5 ">
+                                    
+                <!--cpf/cnpj-->
+                <label for="cpf/cnpj">CPF * </label>
+                <input 
+                    id="cpf"  
+                    class="form-control inputs" 
+                    type="text" 
+                    name="cpf"
+                    required 
+                >
+            </div>
+            <div class="col-5">
+                    <!--identidade-->
+                    <label for="identidade">RG *</label>
+                    <input 
+                    class="form-control inputs" 
+                    type="number"                                    
+                    name="rg" 
+                    placeholder="numeros do RG" 
+                    id="rg"
+                    required >
+            </div>
+
+        </div>
+
+        <div class="mt-3 container">
+            
+
+        </div>
+
+        <div class="mt-3 container">
+            <div class="row">
+                <div class="col-5">
+                    <!--telefone 1-->
+                    <label for="telefone">telefone * </label>
+                    <input 
+                    class="form-control inputs" 
+                    type="number" 
+                    name="telefone_1" 
+                    placeholder="Digite apenas números" 
+                    id="telefone1"
+                    required>
+                </div>
+            
+                <div class="col-5">
+
+                    <!--telefone 2-->
+                    <label for="telefone">recado </label>
+                    <input 
+                    class="form-control inputs" 
+                    type="number" 
+                    name="telefone_2" 
+                    placeholder="Digite apenas números" 
+                    id="telefone2">
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-3 container">
+            <div class="row">
+                <div class="col-7">
+                    <!--e-mail-->
+                    <label for="e-mail">e-mail *</label>
+                    <input 
+                    class="form-control inputs"  
+                    type="email" 
+                    name="email" 
+                    placeholder="email-do-cliente@email.com" 
+                    id="email"
+                    required>
+                </div>
+            </div>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <h1 class="font-weight-light pl-4 pb-4">Carteira</h1>
+        <div class="mt-3 container">
+            <div class="row">
+                <div class="col-4">
+                    <label for="e-mail">Número de Registro *</label>
+                    <input 
+                    class="form-control inputs"  
+                    type="number" 
+                    name="numeroRegistro" 
+                    placeholder="" 
+                    id="numeroRegistro"
+                    required>
+                </div>
+                <div class="col-4">
+                    <label for="e-mail">Categoria *</label>
+                    <input 
+                    class="form-control inputs"  
+                    type="text" 
+                    name="categoria" 
+                    placeholder="Ex: A" 
+                    id="categoria"
+                    required>
+                </div>
+                <div class="col-4">
+                    <label for="e-mail">Data de Validade *</label>
+                    <input 
+                    class="form-control inputs"  
+                    type="date" 
+                    name="dataValidade" 
+                    placeholder="" 
+                    id="dataValidade"
+                    required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <label for="imagem">Foto da carteira * </label><br>
+                    <input
+                        required  
+                        class="form-control" 
+                        type="file" 
+                        required 
+                        name="arquivo"
+                        onchange="
+                        document.getElementById('img-veiculo').src = window.URL.createObjectURL(this.files[0])
+                        ">
+                </div>
+
+                <div class="col-4 text-center p-5">
+                    <img id="img-veiculo"  height="300px" src="" >
+                </div>       
+            </div>
+        </div>
+
+        <br>
+        <hr>
+        <br>
+
+        <h1 class="font-weight-light pl-4 pb-4">Endereço</h1>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-5">
+                    <!--logradouro-->
+                    <label for="logradouro">logradouro * </label>
+                    <input 
+                    class="form-control inputs"   
+                    type="text" 
+                    name="logradouro" 
+                    placeholder="Rua, avenida, praça..." 
+                    id="logradouro"
+                    required >
+                </div>
+            
+                <div class="col-3">
+                    <!--numero-->
+                    <label for="numero">numero *</label>
+                    <input 
+                    class="form-control inputs" 
+                    type="number" 
+                    name="numero" 
+                    placeholder="digite apenas numeros" 
+                    id="numero"
+                    required >
+                </div>
+
+                <div class="col-4">
+                    <!--complemento-->
+                    <label for="complemento ">complemento *</label>
+                    <input 
+                    class="form-control inputs"  
+                    type="text" 
+                    name="complemento" 
+                    placeholder="" 
+                    id="complemento"
+                    required >
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-5">
+                    <!--bairro-->
+                    <label for="bairro">bairro </label>
+                    <input 
+                    class="form-control  inputs" 
+                    type="text" 
+                    name="bairro" 
+                    placeholder="" 
+                    id="bairro"
+                    required >
+                </div>
+            
+                <div class="col-3">
+                    <!--cidade-->
+                    <label for="cidade">cidade *</label>
+                    <input 
+                    class="form-control inputs" 
+                    type="text" 
+                    name="cidade" 
+                    placeholder="" 
+                    id="cidade"
+                    required >
+                </div>
+
+                <div class="col-3">
+                    <!--estado-->
+                    <label for="estado">estado *</label>
+                    <input 
+                    class="form-control inputs" 
+                    type="text" 
+                    name="estado" 
+                    placeholder="GO, SP, SC..." 
+                    id="estado"
+                    required >
+                </div>
+
+                <div class="col-3">
+                    <!--CEP-->
+                    <label for="CEP">CEP *</label>
+                    <input 
+                    class="form-control inputs" 
+                    type="number" 
+                    name="cep" 
+                    placeholder="00000000" 
+                    id="cep"
+                    required >
+                </div>
+            </div>
+        </div>
+
+        
+        <div class="row justify-content-around mt-4 pb-4">
+            <div class="col-4">
+                <!-- botão cancelar-->
+                <div class="row justify-content-center">
+                    <a name="" id="" class="col-10 btn btn-danger" href="http://localhost/blockbuster/?pagina=motorista" role="button">cancelar</a>
+                </div>
+            </div>
+            <!-- botão alterar-->
+            <div class="col-4">
+                <div class="row justify-content-center">
+                    <input type="submit"   value="cadastrar" class="btn btn-success col-10">
+                </div>
+            </div>
+        </div>
+    
+    </form>
+
+</div>
+

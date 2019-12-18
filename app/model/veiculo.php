@@ -184,6 +184,24 @@ class Veiculo {
 
         return true;
     }
+
+    static function mudarSituacao($id) {
+            
+        $con = Connection::getConn();
+
+        //deletar categoria
+        $sql = "UPDATE veiculo
+        SET 
+        situacao = 'indisponivel'
+        WHERE veiculo.veiculo_id = :veiculo_id
+        ";
+
+        $sql = $con->prepare($sql);
+        $sql->bindValue(':veiculo_id',$id , PDO::PARAM_STR);
+        $resultado = $sql->execute();
+
+        return true;
+    }
 }
 
 ?>

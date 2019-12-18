@@ -53,7 +53,6 @@
 
         public function cliente(){
             //carregar paginas com os clientes
-            var_dump($_POST);
             try {
                 //solicitação ao banco
                 $clientes = Cliente::selecionaTodos();
@@ -92,15 +91,13 @@
             }
 
         }
-
         
         public function motorista(){
             //carregar paginas com os clientes
-            var_dump($_POST);
             try {
                 //solicitação ao banco os dados dos motoristas
                 //por enquanto esta sendo buscado dos clientes
-                $clientes = Cliente::selecionaTodos();
+                $motoristas = Motorista::selecionaTodos();
 
 
                 /*
@@ -114,7 +111,7 @@
 
                 */
                 $parametros = array();
-                $parametros['clientes'] = $clientes;
+                $parametros['motoristas'] = $motoristas;
 
                 $parametros['veiculo_id'] = $_POST['veiculo_id'];
                 $parametros['cliente_id'] = $_POST['cliente_id'];
@@ -138,9 +135,10 @@
 
         }
 
-        public function dados(){
+        public function dados($motorista){
             //carregar paginas com os clientes
-            try {
+            if (Locacao::consultarMotorista($motorista))
+            {
                 //solicitação ao banco os dados dos motoristas
                 //por enquanto esta sendo buscado dos clientes
                 $veiculo = Veiculo::retornarVeiculo($_POST['veiculo_id']);
@@ -158,14 +156,62 @@
 
                 */
                 $parametros = array();
-                $parametros['motorista_id'] = $_POST['motorista_id'];
+                $parametros['motorista_id'] = $motorista;
                 $parametros['veiculo_id'] = $_POST['veiculo_id'];
                 $parametros['cliente_id'] = $_POST['cliente_id'];
                 $parametros['categorias'] = $categoria;
-                var_dump($parametros);
                 $loader = new \Twig\Loader\FilesystemLoader('app/view');
                 $twig = new \Twig\Environment($loader);
                 $template = $twig->load('locacaoDados.html');
+
+                //renderizar o template, parametros de render seriam dados vindos de alguma model
+                echo $template->render($parametros);
+
+            } else {
+                echo '<script language="javascript">';
+                echo 'alert("Motorista não pode participar da locação pois ja esta vinculado a outra locação")';  
+                echo '</script>';
+                LocacaoController::motorista();
+            }
+
+        }
+
+        public function finalizacao(){
+            //carregar paginas com os clientes
+            try {
+                
+                //solicitação ao banco os dados dos motoristas
+                //por enquanto esta sendo buscado dos clientes
+                var_dump($_POST);
+                Locacao::cadastrarLocacao();
+                Veiculo::mudarSituacao($_POST['veiculo_id']);
+                $veiculo = Veiculo::retornarVeiculo($_POST['veiculo_id']);
+                $modelo = Modelo::retornarModelo($veiculo[0]->modelo_id);
+                $categoria = Categoria::retornaCategoria($modelo[0]->categoria_id);
+                $cliente = Cliente::retornarCliente($_POST['cliente_id']);
+                $motorista = Motorista::retornarMotorista($_POST['motorista_id']);
+
+                /*
+                    twig é uma api que permite mostrar conteudos na view sem a necessidade de escrever
+                    codigo php no html da view, assim o codigo não fica misturado.
+                    sintaxe:
+                        naview: {{conteudo}}
+                        na controller: array[conteudo] = nome
+
+                        o valores na view dentro de {{}} sao substituidos pela valor da chave no array
+
+                */
+                $parametros = array();
+                $parametros['veiculo'] = $veiculo;
+                $parametros['motorista'] = $motorista;
+                $parametros['modelo'] = $modelo;
+                $parametros['categoria'] = $categoria;
+                $parametros['cliente'] = $cliente;
+                $parametros['dados'] = $_POST;
+                var_dump($parametros);
+                $loader = new \Twig\Loader\FilesystemLoader('app/view');
+                $twig = new \Twig\Environment($loader);
+                $template = $twig->load('locacaoFinalizacao.html');
 
                 //renderizar o template, parametros de render seriam dados vindos de alguma model
                 echo $template->render($parametros);
@@ -174,15 +220,13 @@
                 echo $e->getMessage();
                 $loader = new \Twig\Loader\FilesystemLoader('app/view');
                 $twig = new \Twig\Environment($loader);
-                $template = $twig->load('locacaoDados.html');
+                $template = $twig->load('locacaoFinalizacao.html');
 
                 //renderizar o template, parametros de render seriam dados vindos de alguma model
                 echo $template->render();
             }
 
         }
-
-
     }
 
 ?>

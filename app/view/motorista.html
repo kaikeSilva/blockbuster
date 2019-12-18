@@ -1,18 +1,13 @@
 <div class="container">
-    <div class="row justify-content-center">
-        <p class="display-4">Escolha o motorista</p>
-    </div>
-</div>
-<div class="container">
     <div class="row justify-content-center align-items-center">
         <div class="col-3">
-            <a name="" id="" class="btn btn-primary btn-lg" href="http://localhost/blockbuster/?pagina=cliente&metodo=cadastrarCliente" role="button">cadastrar</a>
+            <a name="" id="" class="btn btn-primary btn-lg" href="http://localhost/blockbuster/?pagina=motorista&metodo=cadastrarMotorista" role="button">cadastrar</a>
         </div>
         
         <div class="col-7">
             <!--pesquisa de motorista-->
             <form class="form-row my-2 my-lg-0 ">
-                <input class="form-control mr-sm-2 col-9" type="text" placeholder="CPF/CNPJ">
+                <input class="form-control mr-sm-2 col-9" type="text" placeholder="CPF">
                 <a name="" id="" class="btn btn-primary col-2" href="#" role="button"><i class="texto-pesquisa fa fa-search" aria-hidden="true"></i></a>
             </form>
 
@@ -31,9 +26,14 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th>CPF/CNPJ</th>
+                        <th>CPF</th>
                         <th>Telefone</th>
                         <th>E-mail</th>
+                        <th>Número de Registro</th>
+                        <th>Categoria</th>
+                        <th>Data de Validade</th>
+                        <th>Foto da carteira</th>
+                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
@@ -46,10 +46,11 @@
                                 <td>{{motorista.cpf}}</td>
                                 <td>{{motorista.telefone_1}}</td>
                                 <td>{{motorista.email}}</td>
-
+                                <td>{{motorista.numeroRegistro}}</td>
+                                <td>{{motorista.categoria}}</td>
+                                <td>{{motorista.dataValidade}}</td>
                                 <td>
-                                    <a onclick="submeterMotorista({{motorista.id_motorista}} ,
-                                     {{veiculo_id}} , {{cliente_id}})" name="" id="" class="btn btn-sm btn-primary text-light" role="button">escolher</a>
+                                    {{motorista.id_imagem}}
                                 </td>
         
                             </tr>

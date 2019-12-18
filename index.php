@@ -20,6 +20,10 @@ require_once 'app/controller/veiculoController.php';
 require_once 'app/model/veiculo.php';
 require_once 'app/controller/locacaoController.php';
 require_once 'app/model/locacao.php';
+require_once 'app/controller/motoristaController.php';
+require_once 'app/model/motorista.php';
+require_once 'app/controller/imagemCarteiraController.php';
+require_once 'app/model/imagemCarteira.php';
 
 $template = file_get_contents('app\template\estrutura.html');
 

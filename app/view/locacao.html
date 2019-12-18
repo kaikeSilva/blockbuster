@@ -46,6 +46,7 @@
                                 <div class="text-left col-6 d-inline">
                                     <p class="h4 text-info">{{item.nome}}</p>
                                     <p class="text-uppercase text-black-50" >{{item.placa}}</p>
+                                    <p class="text-uppercase text-black-50" >km: {{item.quilometragem}}</p>
                                     {% for categoria in categorias %}
                                         {% if categoria.categoria_id == item.categoria_id %}
                                             <p class="font-weight-bold">R&#36; {{categoria.valor}}</p>

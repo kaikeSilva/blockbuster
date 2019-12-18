@@ -563,15 +563,18 @@ function submeterCliente (idCliente, idVeiculo) {
     form.submit()
 }
 
-function submeterMotorista (idCliente, idVeiculo, idMotorista) {
+function submeterMotorista (idMotorista,  idVeiculo, idCliente) {
     var form = document.createElement("form");
-    console.log(idCliente)
-    console.log(idVeiculo)
+    console.log('cliente',idCliente)
+    console.log('veiculo',idVeiculo)
+    console.log('motorista',idMotorista)
 
     form.setAttribute("type", "hidden");
 
     form.method = "POST";
-    form.action = "?pagina=locacao&metodo=dados";
+    form.action = "?pagina=locacao&metodo=dados&id="+idMotorista;
+
+    console.log(form.action);
 
 
     //id do veiculo
